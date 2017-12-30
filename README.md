@@ -35,6 +35,12 @@ Just Copy the Visu Folder into your lighttpd www root
 g++ main.cpp -o piMeter -lsqlite3 -lbcm2835
 ```
 
+### Run piMeter
+```
+// bcm2835 Lib needs root
+sudo ./piMeter &
+```
+
 ## Ressources
 
 [ADE9000 Datasheet](http://www.analog.com/media/en/technical-documentation/data-sheets/ADE9000.pdf)
