@@ -1,5 +1,4 @@
-# piMeter
-## A SmartMeter HAT for Raspberry Pi
+# piMeter - a SmartMeter HAT for Raspberry Pi
 
 ## Frontend
 ![alt text](http://www.digitaldex.de/wp-content/uploads/2017/12/CurrentScreen.png "Visu Screenshot")
