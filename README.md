@@ -7,6 +7,9 @@
 ## Board
 ![alt text](http://www.digitaldex.de/wp-content/uploads/2017/12/Board.png "Eagle Board Screenshot")
 
+## Schematics
+[piMeter Schematics](http://www.digitaldex.de/wp-content/uploads/2017/12/Schematics.pdf)
+
 ## Setup Raspberry Pi
 ### Install Dependencies
 ```
