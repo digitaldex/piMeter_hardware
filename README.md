@@ -11,6 +11,9 @@
 [piMeter Schematics](http://www.digitaldex.de/wp-content/uploads/2017/12/Schematics.pdf)
 
 ## Setup Raspberry Pi
+
+Enable SPI in raspi-config
+
 ### Install Dependencies
 ```
 // Install libsqlite
