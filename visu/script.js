@@ -29,11 +29,14 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                               }, {
                                                               "fromField": "CI_PCF",
                                                               "toField": "CI_PCF"
+                                                              }, {
+                                                              "fromField": "PWATT_ACC",
+                                                              "toField": "PWATT_ACC"
                                                               } ],
                                             "dataLoader": {
                                                 "url": "dataCurrent.php",
                                                 "format": "json",
-						"async": true,
+                                                "async": true,
                                                 "reload": 10
                                                 },
                                             "categoryField": "Timestamp",
@@ -134,7 +137,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                           "title": "Watt",
                                           "percentHeight": 20,
                                           "stockGraphs": [ {
-                                                          "valueField": "AIRMS",
+                                                          "valueField": "PWATT_ACC",
                                                           "type": "column",
                                                           "cornerRadiusTop": 2,
                                                           "fillAlphas": 1
