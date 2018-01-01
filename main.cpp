@@ -145,9 +145,9 @@ int main() {
             writeDB(dbPath,dbPointer, stmt, sql);
         }
         else {
-            valueMap["powerL1"] = valueMap.find("currentL1RMS")->second * 230 * 1.732050;
-            valueMap["powerL2"] = valueMap.find("currentL2RMS")->second * 230 * 1.732050;
-            valueMap["powerL3"] = valueMap.find("currentL3RMS")->second * 230 * 1.732050;
+            valueMap["powerL1"] = valueMap.find("currentL1RMS")->second * 230;
+            valueMap["powerL2"] = valueMap.find("currentL2RMS")->second * 230;
+            valueMap["powerL3"] = valueMap.find("currentL3RMS")->second * 230;
             valueMap["powerSumm"] = valueMap.find("powerL1")->second + valueMap.find("powerL2")->second + valueMap.find("powerL3")->second;
             
             statement = "INSERT INTO Power (Timestamp, AWATT, AVA, BWATT, BVA, CWATT, CVA, PWATT_ACC, PVAR_ACC) VALUES (datetime('now', 'localtime'), '"+ to_string(valueMap.find("powerL1")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerL2")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerL3")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerSumm")->second) +"', 'NULL')";
