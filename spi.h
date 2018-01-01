@@ -1,5 +1,6 @@
 using namespace std;
 
+
 #define WORD_SIZE_READ          8U
 #define WORD_SIZE_WRITE         4U
 #define R_STATUS_REGISTER       0b0100011100101000
