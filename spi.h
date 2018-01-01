@@ -1,3 +1,4 @@
+using namespace std;
 
 #define WORD_SIZE_READ          8U
 #define WORD_SIZE_WRITE         4U
