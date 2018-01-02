@@ -1,10 +1,12 @@
 var chart = AmCharts.makeChart( "chartdiv", {
                                "type": "stock",
-                               "dataDateFormat": "YYYY-MM-DD JJ:NN:SS",
+                               "dataDateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
                                "addClassNames": true,
                                "glueToTheEnd": true,
                                "categoryAxesSettings": {
-                               "minPeriod": "ss"
+                               "minPeriod": "ss",
+                               "parseDates": true,
+                               "minorGridEnabled": true
                                },
                                "dataSets": [ {
                                             "color": "#C5FFCB",
@@ -36,8 +38,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                             "dataLoader": {
                                                 "url": "dataCurrent.php",
                                                 "format": "json",
-                                                "async": true,
-                                                "reload": 10
+                                                "async": true
                                                 },
                                             "categoryField": "Timestamp",
                                             } ],
@@ -56,7 +57,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "ISUMRMS",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 2,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           }, {
                                                           "id": "g2",
                                                           "lineColor": "#60C21E",
@@ -64,7 +66,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "AIRMS",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           }, {
                                                           "id": "g3",
                                                           "lineColor": "#159E31",
@@ -72,7 +75,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "BIRMS",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           }, {
                                                           "id": "g4",
                                                           "lineColor": "#53DB50",
@@ -80,7 +84,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "CIRMS",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           } ],
                                           "stockLegend": {
                                               //"valueTextRegular": " ",
@@ -104,7 +109,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "AI_PCF",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           }, {
                                                           "id": "g6",
                                                           "lineColor": "#159E31",
@@ -112,7 +118,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "BI_PCF",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           }, {
                                                           "id": "g7",
                                                           "lineColor": "#53DB50",
@@ -120,7 +127,8 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "valueField": "CI_PCF",
                                                           "type": "smoothedLine",
                                                           "lineThickness": 1,
-                                                          "useDataSetColors": false
+                                                          "useDataSetColors": false,
+                                                          "connect": false
                                                           } ],
                                           "stockLegend": {
                                           //"valueTextRegular": " ",
@@ -171,7 +179,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "fontSize": 10,
                                "color": "#999",
                                "position": "top",
-                               "dateFormat": "YYYY-MM-DD JJ:NN:SS",
+                               "dateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
                                "inputFieldWidth": 150,
                                "periods": [ {
                                            "period": "mm",

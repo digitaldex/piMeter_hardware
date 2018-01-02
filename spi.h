@@ -1,6 +1,5 @@
 using namespace std;
 
-
 #define WORD_SIZE_READ          8U
 #define WORD_SIZE_WRITE         4U
 #define R_STATUS_REGISTER       0b0100011100101000
@@ -121,7 +120,7 @@ void writeSPI(unsigned int word) {
     char spiWriteCommand[4];
     resizeWord32(spiWriteCommand, word);
     bcm2835_spi_transfern(spiWriteCommand, WORD_SIZE_WRITE);
-    usleep(50000);
+    usleep(50);
 }
 
 void readSPI(char spiReceive[], unsigned short word) {
@@ -131,5 +130,5 @@ void readSPI(char spiReceive[], unsigned short word) {
     char spiReadCommand[2];
     resizeWord16(spiReadCommand, word);
     bcm2835_spi_transfernb(spiReadCommand, spiReceive, WORD_SIZE_READ);
-    usleep(50000);
+    usleep(50);
 }

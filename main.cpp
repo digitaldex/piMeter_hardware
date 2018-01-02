@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <sys/time.h>
 #include <map>
 #include "db.h"
 #include "spi.h"
@@ -36,6 +38,7 @@ float calcInt32ToFloat(int32_t &buffer) {
 
 
 int main() {
+
     /* SQL */
     const char *dbPath = "/home/pi/db.sqlite";
     const char *configPath = "/home/pi/piMeter/config.ini";
@@ -45,13 +48,17 @@ int main() {
     const char *sql;
     /* Config Readout */
     map<string, string> configMap;
-    map<string, string> configMap_iter;
     /* ADE Readout */
-    map<string, float> valueMap;
-    map<string, float>::iterator valueMap_iter;
+    map<string, float[60]> valueMap;
     uint32_t ADCreturnValueUnsigned;
     int32_t ADCreturnValueSigned;
     char spiReceive[8];
+    /* Time */
+    time_t rawtime;
+    struct tm * timeinfo;
+    char timebuffer[80];
+    char currentTime[84];
+    string Timestamp[60];
     
     /* Reads Out Config.ini */
     parseConfigFile(configPath, configMap);
@@ -77,85 +84,103 @@ int main() {
     if(createDB(dbPath, dbPointer, stmt, sql)) {
         cerr << "SQL ERROR: Could not create Power Database" << endl;
     };
-    
-    while(1) {
-        /* Read Current Values an write to DB */
-        readSPI(spiReceive, R_AIRMS_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL1RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
-        
-        readSPI(spiReceive, R_BIRMS_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL2RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
-        
-        readSPI(spiReceive, R_CIRMS_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL3RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
-        
-        readSPI(spiReceive, R_ISUMRMS_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentSummRMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
-        
-        readSPI(spiReceive, R_AI_PCF_REGISTER);
-        ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL1"] = calcInt32ToFloat(ADCreturnValueSigned);
-        
-        readSPI(spiReceive, R_BI_PCF_REGISTER);
-        ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL2"] = calcInt32ToFloat(ADCreturnValueSigned);
-        
-        readSPI(spiReceive, R_CI_PCF_REGISTER);
-        ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-        valueMap["currentL3"] = calcInt32ToFloat(ADCreturnValueSigned);
 
-        statement = "INSERT INTO Current (Timestamp, AIRMS, BIRMS, CIRMS, ISUMRMS, AI_PCF, BI_PCF, CI_PCF) VALUES (datetime('now', 'localtime'), '"+ to_string(valueMap.find("currentL1RMS")->second) +"', '"+ to_string(valueMap.find("currentL2RMS")->second) +"', '"+ to_string(valueMap.find("currentL3RMS")->second) +"', '"+ to_string(valueMap.find("currentSummRMS")->second) +"', '"+ to_string(valueMap.find("currentL1")->second) +"', '"+ to_string(valueMap.find("currentL2")->second) +"', '"+ to_string(valueMap.find("currentL3")->second) +"')";
-        sql = statement.c_str();
-        writeDB(dbPath,dbPointer, stmt, sql);
-        
-        if(configMap.find("UseVoltageChannel")->second == "true") {
-            /* Insert ADE9000 Power Readout here */
+    while(1) {
+        for(int i = 0; i < 60; i++) {
+            /* Get Time */
+            timeval curTime;
+            gettimeofday(&curTime, NULL);
+            int milli = curTime.tv_usec / 1000;
+            time(&rawtime);
+            timeinfo = localtime(&rawtime);
+            strftime(timebuffer, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
+            sprintf(currentTime, "%s:%d", timebuffer, milli);
+            Timestamp[i] = currentTime;
             
-            /* Read Voltage Values an write to DB */
-            readSPI(spiReceive, R_AVRMS_REGISTER);
+            /* Read Current Values an write to DB */
+            readSPI(spiReceive, R_AIRMS_REGISTER);
             ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL1RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
+            valueMap["currentL1RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
             
-            readSPI(spiReceive, R_BVRMS_REGISTER);
+            readSPI(spiReceive, R_BIRMS_REGISTER);
             ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL2RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
+            valueMap["currentL2RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
             
-            readSPI(spiReceive, R_CVRMS_REGISTER);
+            readSPI(spiReceive, R_CIRMS_REGISTER);
             ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL3RMS"] = calcUint32ToFloat(ADCreturnValueUnsigned);
+            valueMap["currentL3RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
             
-            readSPI(spiReceive, R_AV_PCF_REGISTER);
+            readSPI(spiReceive, R_ISUMRMS_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            valueMap["currentSummRMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
+            
+            readSPI(spiReceive, R_AI_PCF_REGISTER);
             ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL1"] = calcInt32ToFloat(ADCreturnValueSigned);
+            valueMap["currentL1"][i] = calcInt32ToFloat(ADCreturnValueSigned);
             
-            readSPI(spiReceive, R_BV_PCF_REGISTER);
+            readSPI(spiReceive, R_BI_PCF_REGISTER);
             ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL2"] = calcInt32ToFloat(ADCreturnValueSigned);
+            valueMap["currentL2"][i] = calcInt32ToFloat(ADCreturnValueSigned);
             
-            readSPI(spiReceive, R_CV_PCF_REGISTER);
+            readSPI(spiReceive, R_CI_PCF_REGISTER);
             ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
-            valueMap["voltageL3"] = calcInt32ToFloat(ADCreturnValueSigned);
-            
-            statement = "INSERT INTO Voltage (Timestamp, AVRMS, BVRMS, CVRMS, AV_PCF, BV_PCF, CV_PCF) VALUES (datetime('now', 'localtime'), '"+ to_string(valueMap.find("voltageL1RMS")->second) +"', '"+ to_string(valueMap.find("voltageL2RMS")->second) +"', '"+ to_string(valueMap.find("voltageL3RMS")->second) +"', '"+ to_string(valueMap.find("voltageL1")->second) +"', '"+ to_string(valueMap.find("voltageL2")->second) +"', '"+ to_string(valueMap.find("voltageL3")->second) +"')";
-            sql = statement.c_str();
-            writeDB(dbPath,dbPointer, stmt, sql);
+            valueMap["currentL3"][i] = calcInt32ToFloat(ADCreturnValueSigned);
+
+            if(configMap.find("UseVoltageChannel")->second == "true") {
+                /* Insert ADE9000 Power Readout here */
+                
+                /* Read Voltage Values an write to DB */
+                readSPI(spiReceive, R_AVRMS_REGISTER);
+                ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL1RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
+                
+                readSPI(spiReceive, R_BVRMS_REGISTER);
+                ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL2RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
+                
+                readSPI(spiReceive, R_CVRMS_REGISTER);
+                ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL3RMS"][i] = calcUint32ToFloat(ADCreturnValueUnsigned);
+                
+                readSPI(spiReceive, R_AV_PCF_REGISTER);
+                ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL1"][i] = calcInt32ToFloat(ADCreturnValueSigned);
+                
+                readSPI(spiReceive, R_BV_PCF_REGISTER);
+                ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL2"][i] = calcInt32ToFloat(ADCreturnValueSigned);
+                
+                readSPI(spiReceive, R_CV_PCF_REGISTER);
+                ADCreturnValueSigned = parse32bitReturnValue(spiReceive);
+                valueMap["voltageL3"][i] = calcInt32ToFloat(ADCreturnValueSigned);
+                
+                
+            }
+            else {
+                valueMap["powerL1"][i] = valueMap.find("currentL1RMS")->second[i] * 230;
+                valueMap["powerL2"][i] = valueMap.find("currentL2RMS")->second[i] * 230;
+                valueMap["powerL3"][i] = valueMap.find("currentL3RMS")->second[i] * 230;
+                valueMap["powerSumm"][i] = valueMap.find("powerL1")->second[i] + valueMap.find("powerL2")->second[i] + valueMap.find("powerL3")->second[i];
+            }
+
+            if(i == 59) {
+                for(int y = 0; y < 60; y++) {
+                    statement = "INSERT INTO Current (Timestamp, AIRMS, BIRMS, CIRMS, ISUMRMS, AI_PCF, BI_PCF, CI_PCF) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("currentL1RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL2RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL3RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentSummRMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL1")->second[y]) +"', '"+ to_string(valueMap.find("currentL2")->second[y]) +"', '"+ to_string(valueMap.find("currentL3")->second[y]) +"')";
+                    sql = statement.c_str();
+                    writeDB(dbPath,dbPointer, stmt, sql);
+                    
+                    statement = "INSERT INTO Voltage (Timestamp, AVRMS, BVRMS, CVRMS, AV_PCF, BV_PCF, CV_PCF) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("voltageL1RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL2RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL3RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL1")->second[y]) +"', '"+ to_string(valueMap.find("voltageL2")->second[y]) +"', '"+ to_string(valueMap.find("voltageL3")->second[y]) +"')";
+                    sql = statement.c_str();
+                    writeDB(dbPath,dbPointer, stmt, sql);
+
+                    statement = "INSERT INTO Power (Timestamp, AWATT, AVA, BWATT, BVA, CWATT, CVA, PWATT_ACC, PVAR_ACC) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("powerL1")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerL2")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerL3")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerSumm")->second[y]) +"', 'NULL')";
+                    sql = statement.c_str();
+                    writeDB(dbPath,dbPointer, stmt, sql);
+                }
+                i = 0;
+            }
+            sleep(stoi(configMap.find("CycleTime")->second));
         }
-        else {
-            valueMap["powerL1"] = valueMap.find("currentL1RMS")->second * 230;
-            valueMap["powerL2"] = valueMap.find("currentL2RMS")->second * 230;
-            valueMap["powerL3"] = valueMap.find("currentL3RMS")->second * 230;
-            valueMap["powerSumm"] = valueMap.find("powerL1")->second + valueMap.find("powerL2")->second + valueMap.find("powerL3")->second;
-            
-            statement = "INSERT INTO Power (Timestamp, AWATT, AVA, BWATT, BVA, CWATT, CVA, PWATT_ACC, PVAR_ACC) VALUES (datetime('now', 'localtime'), '"+ to_string(valueMap.find("powerL1")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerL2")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerL3")->second) +"', 'NULL', '"+ to_string(valueMap.find("powerSumm")->second) +"', 'NULL')";
-            sql = statement.c_str();
-            writeDB(dbPath,dbPointer, stmt, sql);
-        }
-        
-        sleep(stoi(configMap.find("CycleTime")->second));
     }
     
     writeSPI(W_RUN_REGISTER_STOP);
