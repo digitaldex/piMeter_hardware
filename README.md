@@ -34,7 +34,7 @@ Just Copy the Visu Folder into your lighttpd www root
 
 ### Build piMeter
 ```
-g++ main.cpp -o piMeter -lsqlite3 -lbcm2835
+g++ main.cpp -o piMeter -lsqlite3 -lbcm2835 -pthread
 ```
 
 ### Run piMeter
