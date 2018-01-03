@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 $db = new SQLite3('/home/pi/db.sqlite');
 $data = array();
-    $results = $db->query("SELECT Current.ID, Current.Timestamp, AIRMS, BIRMS, CIRMS, ISUMRMS, AI_PCF, BI_PCF, CI_PCF, PWATT_ACC FROM Current INNER JOIN Power ON Current.Timestamp = Power.Timestamp WHERE Current.Timestamp >= datetime('now', '-1 hours', 'localtime')");
+    $results = $db->query("SELECT Current.ID, Current.Timestamp, AIRMS, BIRMS, CIRMS, ISUMRMS, AI_PCF, BI_PCF, CI_PCF, PWATT_ACC FROM Current INNER JOIN Power ON Current.ID = Power.ID WHERE Current.Timestamp >= datetime('now', '-1 hours', 'localtime')");
 while ($row = $results->fetchArray()) {
 	$data[] = array(
 		"ID" => $row['ID'],

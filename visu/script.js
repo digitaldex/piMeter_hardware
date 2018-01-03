@@ -284,7 +284,6 @@ var chart = AmCharts.makeChart( "chartdiv2", {
                                                         "unit": "V"
                                                         } ],
                                           }, {
-                                          "showCategoryAxis": false,
                                           "fontFamily": "Helvetica Neue",
                                           "fontSize": 10,
                                           "color": "#999",

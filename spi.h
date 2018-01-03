@@ -132,3 +132,25 @@ void readSPI(char spiReceive[], unsigned short word) {
     bcm2835_spi_transfernb(spiReadCommand, spiReceive, WORD_SIZE_READ);
     usleep(50);
 }
+
+float calcUint32ToFloat(uint32_t &buffer) {
+    /* Caluclates the uint32 ADC return value to decimal */
+    float calculatedValue;
+    if(buffer != 0) {
+        calculatedValue = 0;
+        calculatedValue = 52702092 / buffer;
+        calculatedValue = 50 / calculatedValue;
+    }
+    return calculatedValue;
+}
+
+float calcInt32ToFloat(int32_t &buffer) {
+    /* Calculates the int32 ADC return value to decimal */
+    float calculatedValue;
+    if(buffer != 0) {
+        calculatedValue = 0;
+        calculatedValue = 52702092 / buffer;
+        calculatedValue = 50 / calculatedValue;
+    }
+    return calculatedValue;
+}
