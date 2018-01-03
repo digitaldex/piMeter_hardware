@@ -161,6 +161,13 @@ int main() {
                 valueMap["powerL2"][i] = valueMap.find("currentL2RMS")->second[i] * 230;
                 valueMap["powerL3"][i] = valueMap.find("currentL3RMS")->second[i] * 230;
                 valueMap["powerSumm"][i] = valueMap.find("powerL1")->second[i] + valueMap.find("powerL2")->second[i] + valueMap.find("powerL3")->second[i];
+                
+                valueMap["voltageL1RMS"][i] = 0;
+                valueMap["voltageL2RMS"][i] = 0;
+                valueMap["voltageL3RMS"][i] = 0;
+                valueMap["voltageL1"][i] = 0;
+                valueMap["voltageL2"][i] = 0;
+                valueMap["voltageL3"][i] = 0;
             }
 
             if(i == 59) {

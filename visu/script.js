@@ -2,11 +2,10 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "type": "stock",
                                "dataDateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
                                "addClassNames": true,
-                               "glueToTheEnd": true,
                                "categoryAxesSettings": {
-                               "minPeriod": "ss",
-                               "parseDates": true,
-                               "minorGridEnabled": true
+                                   "minPeriod": "fff",
+                                   "parseDates": true,
+                                   "minorGridEnabled": true
                                },
                                "dataSets": [ {
                                             "color": "#C5FFCB",
@@ -166,7 +165,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "fontSize": 8,
                                "color": "#999",
                                "graph": "g1",
-                               "usePeriod": "10ss",
+                               "usePeriod": "mm",
                                "position": "top"
                                },
                                
@@ -179,7 +178,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "fontSize": 10,
                                "color": "#999",
                                "position": "top",
-                               "dateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
+                               "dateFormat": "YYYY-MM-DD JJ:NN:SS",
                                "inputFieldWidth": 150,
                                "periods": [ {
                                            "period": "mm",
@@ -194,10 +193,174 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                            "period": "hh",
                                            "count": 1,
                                            "label": "1 Stunde"
+                                           } ]
+                               },
+                               
+                               "panelsSettings": {
+                               "usePrefixes": true
+                               }
+} );
+
+
+var chart = AmCharts.makeChart( "chartdiv2", {
+                               "type": "stock",
+                               "dataDateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
+                               "addClassNames": true,
+                               "categoryAxesSettings": {
+                                   "minPeriod": "fff",
+                                   "parseDates": true,
+                                   "minorGridEnabled": true
+                               },
+                               "dataSets": [ {
+                                            "color": "#C5FFCB",
+                                            "fieldMappings": [ {
+                                                              "fromField": "AVRMS",
+                                                              "toField": "AVRMS"
+                                                              }, {
+                                                              "fromField": "BVRMS",
+                                                              "toField": "BVRMS"
+                                                              }, {
+                                                              "fromField": "CVRMS",
+                                                              "toField": "CVRMS"
+                                                              }, {
+                                                              "fromField": "AV_PCF",
+                                                              "toField": "AV_PCF"
+                                                              }, {
+                                                              "fromField": "BV_PCF",
+                                                              "toField": "BV_PCF"
+                                                              }, {
+                                                              "fromField": "CV_PCF",
+                                                              "toField": "CV_PCF"
+                                                              } ],
+                                            "dataLoader": {
+                                            "url": "dataVoltage.php",
+                                            "format": "json",
+                                            "async": true
+                                            },
+                                            "categoryField": "Timestamp",
+                                            } ],
+                               
+                               "panels": [ {
+                                          "showCategoryAxis": false,
+                                          "fontFamily": "Helvetica Neue",
+                                          "fontSize": 10,
+                                          "color": "#999",
+                                          "title": "Spannung RMS",
+                                          "percentHeight": 50,
+                                          "stockGraphs": [ {
+                                                          "id": "g1",
+                                                          "lineColor": "#60C21E",
+                                                          "title": "L1",
+                                                          "valueField": "AVRMS",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          }, {
+                                                          "id": "g2",
+                                                          "lineColor": "#159E31",
+                                                          "title": "L2",
+                                                          "valueField": "BVRMS",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          }, {
+                                                          "id": "g3",
+                                                          "lineColor": "#53DB50",
+                                                          "title": "L3",
+                                                          "valueField": "CVRMS",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          } ],
+                                          "stockLegend": {
+                                          //"valueTextRegular": " ",
+                                          //"markerType": "none"
+                                          },
+                                          "valueAxes": [ {
+                                                        "title": "Volt",
+                                                        "unit": "V"
+                                                        } ],
+                                          }, {
+                                          "showCategoryAxis": false,
+                                          "fontFamily": "Helvetica Neue",
+                                          "fontSize": 10,
+                                          "color": "#999",
+                                          "title": "Spannung tatsachlich",
+                                          "percentHeight": 50,
+                                          "stockGraphs": [ {
+                                                          "id": "g4",
+                                                          "lineColor": "#60C21E",
+                                                          "title": "L1",
+                                                          "valueField": "AV_PCF",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          }, {
+                                                          "id": "g5",
+                                                          "lineColor": "#159E31",
+                                                          "title": "L2",
+                                                          "valueField": "BV_PCF",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          }, {
+                                                          "id": "g6",
+                                                          "lineColor": "#53DB50",
+                                                          "title": "L3",
+                                                          "valueField": "CV_PCF",
+                                                          "type": "smoothedLine",
+                                                          "lineThickness": 1,
+                                                          "useDataSetColors": false,
+                                                          "connect": false
+                                                          } ],
+                                          "stockLegend": {
+                                          //"valueTextRegular": " ",
+                                          //"markerType": "none"
+                                          },
+                                          "valueAxes": [ {
+                                                        "title": "Volt",
+                                                        "unit": "V"
+                                                        } ],
+                                          } ],
+                               
+                               "chartScrollbarSettings": {
+                               "fontFamily": "Helvetica Neue",
+                               "fontSize": 8,
+                               "color": "#999",
+                               "graph": "g1",
+                               "usePeriod": "mm",
+                               "position": "top"
+                               },
+                               
+                               "chartCursorSettings": {
+                               "valueBalloonsEnabled": true
+                               },
+                               
+                               "periodSelector": {
+                               "fontFamily": "Helvetica Neue",
+                               "fontSize": 10,
+                               "color": "#999",
+                               "position": "top",
+                               "dateFormat": "YYYY-MM-DD JJ:NN:SS",
+                               "inputFieldWidth": 150,
+                               "periods": [ {
+                                           "period": "mm",
+                                           "count": 1,
+                                           "selected": true,
+                                           "label": "1 Minute"
+                                           }, {
+                                           "period": "mm",
+                                           "count": 30,
+                                           "label": "30 Minuten"
                                            }, {
                                            "period": "hh",
-                                           "count": 24,
-                                           "label": "24 Stunden"
+                                           "count": 1,
+                                           "label": "1 Stunde"
                                            } ]
                                },
                                
