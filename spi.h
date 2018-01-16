@@ -1,14 +1,17 @@
 using namespace std;
 
 #define WORD_SIZE_READ          8U
-#define WORD_SIZE_WRITE         4U
+#define WORD_SIZE_WRITE16       4U
+#define WORD_SIZE_WRITE32       6U
 #define R_STATUS_REGISTER       0b0100011100101000
 #define R_RUN_REGISTER          0b0100100000001000
 #define R_STATUS0_REGISTER      0b0100000000101000
 #define R_STATUS1_REGISTER      0b0100000000111000
 #define R_CONFIG0_REGISTER      0b0000011000001000
-#define R_TMPRSLT_REGISTER      0b0100101101111000
 #define R_WR_LOCK_REGISTER      0b0100101111111000
+#define R_AVGAIN_REGISTER       0b0000000010111000
+#define R_BVGAIN_REGISTER       0b0000001010111000
+#define R_CVGAIN_REGISTER       0b0000010010111000
 
 #define R_AI_PCF_REGISTER       0b0010000010101000
 #define R_AV_PCF_REGISTER       0b0010000010111000
@@ -41,10 +44,14 @@ using namespace std;
 #define R_PWATT_ACC_REGISTER    0b0011100101111000
 #define R_PVAR_ACC_REGISTER     0b0011100111111000
 
-#define W_TEMP_REGISTER         0b01001011011000000000000000001110
 #define W_RUN_REGISTER_START    0b01001000000000000000000000000001
 #define W_RUN_REGISTER_STOP     0b01001000000000000000000000000000
-#define W_CONFIG0_REGISTER      0b00000110000000000000000000000011
+#define W_AVGAIN_REGISTER       0b000000001011000000000000000000000000000000000000
+#define W_BVGAIN_REGISTER       0b000000101011000000000000000000000000000000000000
+#define W_CVGAIN_REGISTER       0b000001001011000000000000000000000000000000000000
+#define W_VLEVEL_REGISTER       0b010000001111000000000000001000101110101000101000
+#define W_ACCMODE_REGISTER      0b01001001001000000000000000000101
+#define W_EP_CFG_REGISTER       0b01001011000000000110000000000001
 
 
 int initSPI() {
@@ -80,6 +87,15 @@ void resizeWord32(char byte[], unsigned int word) {
 	byte[1] = word >> 16;
 	byte[2] = word >> 8;
 	byte[3] = word & 0xFF;
+}
+
+void resizeWord48(char byte[], uint64_t word) {
+    byte[0] = word >> 40;
+    byte[1] = word >> 32;
+    byte[2] = word >> 24;
+    byte[3] = word >> 16;
+    byte[4] = word >> 8;
+    byte[5] = word & 0xFF;
 }
 
 uint32_t parse32bitReturnValue(char byte[]) {
@@ -119,7 +135,16 @@ void writeSPI(unsigned int word) {
     /* and gets transfered over SPI Bus */
     char spiWriteCommand[4];
     resizeWord32(spiWriteCommand, word);
-    bcm2835_spi_transfern(spiWriteCommand, WORD_SIZE_WRITE);
+    bcm2835_spi_transfern(spiWriteCommand, WORD_SIZE_WRITE16);
+    usleep(50);
+}
+
+void writeSPIlong(uint64_t word) {
+    /* The Register Write WORD is shifted into 6 Bytes */
+    /* and gets transfered over SPI Bus */
+    char spiWriteCommand[6];
+    resizeWord48(spiWriteCommand, word);
+    bcm2835_spi_transfern(spiWriteCommand, WORD_SIZE_WRITE32);
     usleep(50);
 }
 
@@ -131,26 +156,4 @@ void readSPI(char spiReceive[], unsigned short word) {
     resizeWord16(spiReadCommand, word);
     bcm2835_spi_transfernb(spiReadCommand, spiReceive, WORD_SIZE_READ);
     usleep(50);
-}
-
-float calcUint32ToFloat(uint32_t &buffer) {
-    /* Caluclates the uint32 ADC return value to decimal */
-    float calculatedValue;
-    if(buffer != 0) {
-        calculatedValue = 0;
-        calculatedValue = 52702092 / buffer;
-        calculatedValue = 50 / calculatedValue;
-    }
-    return calculatedValue;
-}
-
-float calcInt32ToFloat(int32_t &buffer) {
-    /* Calculates the int32 ADC return value to decimal */
-    float calculatedValue;
-    if(buffer != 0) {
-        calculatedValue = 0;
-        calculatedValue = 52702092 / buffer;
-        calculatedValue = 50 / calculatedValue;
-    }
-    return calculatedValue;
 }
