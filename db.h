@@ -73,22 +73,3 @@ int writeDB(const char *sql) {
 	sqlite3_close(dbPointer);
     return 0;
 }
-
-void proceedDBWrite(map<string, float[60]> valueMap, string Timestamp[60]) {
-    string statement;
-    const char *sql;
-    
-    for(int y = 0; y < 60; y++) {
-        statement = "INSERT INTO Current (Timestamp, AIRMS, BIRMS, CIRMS, ISUMRMS, AI_PCF, BI_PCF, CI_PCF) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("currentL1RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL2RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL3RMS")->second[y]) +"', '"+ to_string(valueMap.find("currentSummRMS")->second[y]) +"', '"+ to_string(valueMap.find("currentL1")->second[y]) +"', '"+ to_string(valueMap.find("currentL2")->second[y]) +"', '"+ to_string(valueMap.find("currentL3")->second[y]) +"')";
-        sql = statement.c_str();
-        writeDB(sql);
-        
-        statement = "INSERT INTO Voltage (Timestamp, AVRMS, BVRMS, CVRMS, AV_PCF, BV_PCF, CV_PCF) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("voltageL1RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL2RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL3RMS")->second[y]) +"', '"+ to_string(valueMap.find("voltageL1")->second[y]) +"', '"+ to_string(valueMap.find("voltageL2")->second[y]) +"', '"+ to_string(valueMap.find("voltageL3")->second[y]) +"')";
-        sql = statement.c_str();
-        writeDB(sql);
-        
-        statement = "INSERT INTO Power (Timestamp, AWATT, AVA, BWATT, BVA, CWATT, CVA, PWATT_ACC, PVAR_ACC) VALUES ('"+ Timestamp[y] +"', '"+ to_string(valueMap.find("powerL1")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerL2")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerL3")->second[y]) +"', 'NULL', '"+ to_string(valueMap.find("powerSumm")->second[y]) +"', 'NULL')";
-        sql = statement.c_str();
-        writeDB(sql);
-    }
-}
