@@ -16,9 +16,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "dataSets": [ {
                                             "color": "#C5FFCB",
                                             "fieldMappings": [ {
-                                                              "fromField": "ISUMRMS",
-                                                              "toField": "ISUMRMS"
-                                                              }, {
                                                               "fromField": "AIRMS",
                                                               "toField": "AIRMS"
                                                               }, {
@@ -58,15 +55,6 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                           "title": "Strom RMS",
                                           "percentHeight": 40,
                                           "stockGraphs": [ {
-                                                          "id": "g1",
-                                                          "lineColor": "#A5EB3C",
-                                                          "title": "Gesamt",
-                                                          "valueField": "ISUMRMS",
-                                                          "type": "smoothedLine",
-                                                          "lineThickness": 2,
-                                                          "useDataSetColors": false,
-                                                          "connect": false
-                                                          }, {
                                                           "id": "g2",
                                                           "lineColor": "#60C21E",
                                                           "title": "L1",
@@ -159,7 +147,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "cornerRadiusTop": 2,
                                                           "lineColor": "#60C21E",
                                                           "useDataSetColors": false,
-                                                          "fillAlphas": 0.4
+                                                          "fillAlphas": 0.2
                                                           }, {
                                                           "valueField": "BWATT",
                                                           "type": "column",
@@ -168,7 +156,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "cornerRadiusTop": 2,
                                                           "lineColor": "#159E31",
                                                           "useDataSetColors": false,
-                                                          "fillAlphas": 0.4
+                                                          "fillAlphas": 0.2
                                                           }, {
                                                           "valueField": "CWATT",
                                                           "title": "L3",
@@ -177,7 +165,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "cornerRadiusTop": 2,
                                                           "lineColor": "#53DB50",
                                                           "useDataSetColors": false,
-                                                          "fillAlphas": 0.4
+                                                          "fillAlphas": 0.2
                                                           } ],
                                           
                                           "stockLegend": {
@@ -200,7 +188,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "graphLineColor": "#000000",
                                "selectedBackgroundColor": "#FFFFFF",
                                "selectedGraphFillColor": "#A4A4A4",
-                               "graph": "g1",
+                               "graph": "g2",
                                "usePeriod": "mm",
                                "position": "top"
                                },

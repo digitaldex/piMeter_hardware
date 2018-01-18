@@ -73,11 +73,6 @@ void spiWorker::process()
         convBuffer = (ADCreturnValueUnsigned * CurrentConstant * pow(10, -6) * 100);
         temp.insert(QStringLiteral("CIRMS"), (double)convBuffer / 100);
         
-        readSPI(spiReceive, R_ISUMRMS_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        convBuffer = (ADCreturnValueUnsigned * CurrentConstant * pow(10, -6) * 100);
-        temp.insert(QStringLiteral("ISUMRMS"), (double)convBuffer / 100);
-        
         readSPI(spiReceive, R_AVRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
         convBuffer = (ADCreturnValueUnsigned * VoltageConstant * pow(10, -6) * 100);

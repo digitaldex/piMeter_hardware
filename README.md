@@ -1,7 +1,7 @@
 # piMeter - a SmartMeter HAT for Raspberry Pi
 
 ## Frontend
-![alt text](http://www.digitaldex.de/wp-content/uploads/2017/12/Dashboard-2018-01-16-18-13-28.png "Visu Screenshot")
+![alt text](http://www.digitaldex.de/wp-content/uploads/2018/01/Dashboard-2018-01-16-18-13-28.png "Visu Screenshot")
 
 ## Board
 ![alt text](http://www.digitaldex.de/wp-content/uploads/2017/12/Board.png "Eagle Board Screenshot")
