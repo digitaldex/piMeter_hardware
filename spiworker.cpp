@@ -10,10 +10,10 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define VoltageConstant     12.6254
-#define CurrentConstant     0.9488
-#define PowerConstant       1.6079
-#define EnergyConstant      0.4619
+#define VoltageConstant     12.62544722
+#define CurrentConstant     0.948872233
+#define PowerConstant       1.60791982
+#define EnergyConstant      0.45736386
 
 using namespace std;
 

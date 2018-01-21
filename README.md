@@ -1,13 +1,13 @@
 # piMeter - a SmartMeter HAT for Raspberry Pi
 
 ## Frontend
-![alt text](http://www.digitaldex.de/wp-content/uploads/2018/01/Dashboard-2018-01-16-18-13-28.png "Visu Screenshot")
+![alt text](https://github.com/digitaldex/piMeter/blob/master/visu/visu.png "Visu Screenshot")
 
 ## Board
-![alt text](http://www.digitaldex.de/wp-content/uploads/2017/12/Board.png "Eagle Board Screenshot")
+![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/piMeter.png "Eagle Board Screenshot")
 
 ## Schematics
-[piMeter Schematics](http://www.digitaldex.de/wp-content/uploads/2017/12/Schematics.pdf)
+[piMeter Schematics](https://github.com/digitaldex/piMeter/blob/master/eagle/Schematics.pdf)
 
 ## Setup Raspberry Pi
 
