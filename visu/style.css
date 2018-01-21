@@ -5,11 +5,96 @@
     font-size: 8px;
 }
 
-#chartdiv2 {
+#AWATTHR {
+    margin-top: 10px;
     width: 100%;
-    height: 500px;
     font-family: Helvetica Neue;
-    font-size: 8px;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#BWATTHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#CWATTHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#AVARHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#BVARHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#CVARHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#AVAHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#BVAHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#CVAHR {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    color: #999;
+    display: inline;
+}
+
+#context {
+    text-align: left;
+    font-family: Helvetica Neue;
+    font-size: 10px;
+    width: 150px;
+    height: 150px;
+    margin: 10px;
+    margin-top: 5px;
+    margin-left: 40px;
 }
 
 body {

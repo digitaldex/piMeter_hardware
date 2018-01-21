@@ -3,6 +3,16 @@ var wsUri = "ws://10.11.12.16:8888";
 var websocket = null;
 var interval = null;
 
+var AWATTHR_HI = 0;
+var BWATTHR_HI = 0;
+var CWATTHR_HI = 0;
+var AVARHR_HI = 0;
+var BVARHR_HI = 0;
+var CVARHR_HI = 0;
+var AVAHR_HI = 0;
+var BVAHR_HI = 0;
+var CVAHR_HI = 0;
+
 var chart = AmCharts.makeChart( "chartdiv", {
                                "type": "stock",
                                "dataDateFormat": "YYYY-MM-DD JJ:NN:SS:QQQ",
@@ -242,6 +252,24 @@ function initWebSocket() {
         websocket.onmessage = function (evt) {
             //console.log( "Message received :", evt.data );
             var newData = JSON.parse(evt.data);
+            AWATTHR_HI = (newData[0]["AWATTHR_HI"]);
+            BWATTHR_HI = (newData[0]["BWATTHR_HI"]);
+            CWATTHR_HI = (newData[0]["CWATTHR_HI"]);
+            AVARHR_HI = (newData[0]["AVARHR_HI"]);
+            BVARHR_HI = (newData[0]["BVARHR_HI"]);
+            CVAHR_HI = (newData[0]["CVARHR_HI"]);
+            AVAHR_HI = (newData[0]["AVAHR_HI"]);
+            BVAHR_HI = (newData[0]["BVAHR_HI"]);
+            CVAHR_HI = (newData[0]["CVAHR_HI"]);
+            document.getElementById("AWATTHR").innerHTML = AWATTHR_HI + "W";
+            document.getElementById("BWATTHR").innerHTML = BWATTHR_HI + "W";
+            document.getElementById("CWATTHR").innerHTML = CWATTHR_HI + "W";
+            document.getElementById("AVARHR").innerHTML = AVARHR_HI + "W";
+            document.getElementById("BVARHR").innerHTML = BVARHR_HI + "W";
+            document.getElementById("CVARHR").innerHTML = CVARHR_HI + "W";
+            document.getElementById("AVAHR").innerHTML = AVAHR_HI + "W";
+            document.getElementById("BVAHR").innerHTML = BVAHR_HI + "W";
+            document.getElementById("CVAHR").innerHTML = CVAHR_HI + "W";
             chartData.push.apply(chartData, newData);
             if (chartData.length > 3600) {
                 chartData.splice(0, chartData.length - 3600);
