@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.4.1">
+<eagle version="8.5.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -609,55 +609,57 @@ Source: http://www.analog.com/UploadedFiles/Data_Sheets/288945048AD7C7019_20_1_2
 </packages>
 <symbols>
 <symbol name="ADE9000">
-<pin name="PULLHIGH" x="20.32" y="27.94" length="middle"/>
-<pin name="DGND" x="20.32" y="22.86" length="middle"/>
-<pin name="DVDDOUT" x="20.32" y="17.78" length="middle"/>
-<pin name="PM0" x="20.32" y="12.7" length="middle"/>
-<pin name="PM1" x="20.32" y="7.62" length="middle"/>
-<pin name="RESET" x="20.32" y="2.54" length="middle"/>
-<pin name="IAP" x="20.32" y="-2.54" length="middle"/>
-<pin name="IAN" x="20.32" y="-7.62" length="middle"/>
-<pin name="IBP" x="20.32" y="-12.7" length="middle"/>
-<pin name="IBN" x="20.32" y="-17.78" length="middle"/>
-<pin name="VAP" x="73.66" y="-25.4" length="middle" rot="R90"/>
-<pin name="VAN" x="68.58" y="-25.4" length="middle" rot="R90"/>
-<pin name="NC2" x="63.5" y="-25.4" length="middle" rot="R90"/>
-<pin name="NC1" x="58.42" y="-25.4" length="middle" rot="R90"/>
-<pin name="REF" x="53.34" y="-25.4" length="middle" rot="R90"/>
-<pin name="REFGND" x="48.26" y="-25.4" length="middle" rot="R90"/>
-<pin name="INN" x="43.18" y="-25.4" length="middle" rot="R90"/>
-<pin name="INP" x="38.1" y="-25.4" length="middle" rot="R90"/>
-<pin name="ICN" x="33.02" y="-25.4" length="middle" rot="R90"/>
-<pin name="ICP" x="27.94" y="-25.4" length="middle" rot="R90"/>
-<pin name="CLKIN" x="81.28" y="22.86" length="middle" rot="R180"/>
-<pin name="GND" x="81.28" y="17.78" length="middle" rot="R180"/>
-<pin name="VDD" x="81.28" y="12.7" length="middle" rot="R180"/>
-<pin name="AGND" x="81.28" y="7.62" length="middle" rot="R180"/>
-<pin name="AVDDOUT" x="81.28" y="2.54" length="middle" rot="R180"/>
-<pin name="VCP" x="81.28" y="-2.54" length="middle" rot="R180"/>
-<pin name="VCN" x="81.28" y="-7.62" length="middle" rot="R180"/>
-<pin name="VBP" x="81.28" y="-12.7" length="middle" rot="R180"/>
-<pin name="VBN" x="81.28" y="-17.78" length="middle" rot="R180"/>
-<pin name="SS" x="27.94" y="35.56" length="middle" rot="R270"/>
-<pin name="MOSI" x="33.02" y="35.56" length="middle" rot="R270"/>
-<pin name="MISO" x="38.1" y="35.56" length="middle" rot="R270"/>
-<pin name="SCLK" x="43.18" y="35.56" length="middle" rot="R270"/>
-<pin name="CF4" x="48.26" y="35.56" length="middle" rot="R270"/>
-<pin name="CF3" x="53.34" y="35.56" length="middle" rot="R270"/>
-<pin name="CF2" x="58.42" y="35.56" length="middle" rot="R270"/>
-<pin name="CF1" x="63.5" y="35.56" length="middle" rot="R270"/>
-<pin name="IRQ1" x="68.58" y="35.56" length="middle" rot="R270"/>
-<pin name="IRQ0" x="73.66" y="35.56" length="middle" rot="R270"/>
-<wire x1="22.86" y1="-22.86" x2="22.86" y2="33.02" width="0.254" layer="94"/>
-<wire x1="22.86" y1="33.02" x2="78.74" y2="33.02" width="0.254" layer="94"/>
-<wire x1="78.74" y1="33.02" x2="78.74" y2="-22.86" width="0.254" layer="94"/>
-<wire x1="78.74" y1="-22.86" x2="22.86" y2="-22.86" width="0.254" layer="94"/>
-<pin name="CLKOUT" x="81.28" y="27.94" length="middle" rot="R180"/>
-<pin name="PADGND" x="20.32" y="-22.86" length="middle"/>
+<pin name="PULLHIGH" x="-38.1" y="25.4" length="middle"/>
+<pin name="DGND" x="-38.1" y="20.32" length="middle"/>
+<pin name="DVDDOUT" x="-38.1" y="15.24" length="middle"/>
+<pin name="PM0" x="-38.1" y="10.16" length="middle"/>
+<pin name="PM1" x="-38.1" y="5.08" length="middle"/>
+<pin name="RESET" x="-38.1" y="0" length="middle"/>
+<pin name="IAP" x="-38.1" y="-5.08" length="middle"/>
+<pin name="IAN" x="-38.1" y="-10.16" length="middle"/>
+<pin name="IBP" x="-38.1" y="-15.24" length="middle"/>
+<pin name="IBN" x="-38.1" y="-20.32" length="middle"/>
+<pin name="VAP" x="22.86" y="-40.64" length="middle" rot="R90"/>
+<pin name="VAN" x="17.78" y="-40.64" length="middle" rot="R90"/>
+<pin name="NC2" x="12.7" y="-40.64" length="middle" rot="R90"/>
+<pin name="NC1" x="7.62" y="-40.64" length="middle" rot="R90"/>
+<pin name="REF" x="2.54" y="-40.64" length="middle" rot="R90"/>
+<pin name="REFGND" x="-2.54" y="-40.64" length="middle" rot="R90"/>
+<pin name="INN" x="-7.62" y="-40.64" length="middle" rot="R90"/>
+<pin name="INP" x="-12.7" y="-40.64" length="middle" rot="R90"/>
+<pin name="ICN" x="-17.78" y="-40.64" length="middle" rot="R90"/>
+<pin name="ICP" x="-22.86" y="-40.64" length="middle" rot="R90"/>
+<pin name="CLKIN" x="38.1" y="17.78" length="middle" rot="R180"/>
+<pin name="GND" x="38.1" y="12.7" length="middle" rot="R180"/>
+<pin name="VDD" x="38.1" y="7.62" length="middle" rot="R180"/>
+<pin name="AGND" x="38.1" y="2.54" length="middle" rot="R180"/>
+<pin name="AVDDOUT" x="38.1" y="-2.54" length="middle" rot="R180"/>
+<pin name="VCP" x="38.1" y="-7.62" length="middle" rot="R180"/>
+<pin name="VCN" x="38.1" y="-12.7" length="middle" rot="R180"/>
+<pin name="VBP" x="38.1" y="-17.78" length="middle" rot="R180"/>
+<pin name="VBN" x="38.1" y="-22.86" length="middle" rot="R180"/>
+<pin name="SS" x="-22.86" y="40.64" length="middle" rot="R270"/>
+<pin name="MOSI" x="-17.78" y="40.64" length="middle" rot="R270"/>
+<pin name="MISO" x="-12.7" y="40.64" length="middle" rot="R270"/>
+<pin name="SCLK" x="-7.62" y="40.64" length="middle" rot="R270"/>
+<pin name="CF4" x="-2.54" y="40.64" length="middle" rot="R270"/>
+<pin name="CF3" x="2.54" y="40.64" length="middle" rot="R270"/>
+<pin name="CF2" x="7.62" y="40.64" length="middle" rot="R270"/>
+<pin name="CF1" x="12.7" y="40.64" length="middle" rot="R270"/>
+<pin name="IRQ1" x="17.78" y="40.64" length="middle" rot="R270"/>
+<pin name="IRQ0" x="22.86" y="40.64" length="middle" rot="R270"/>
+<wire x1="-33.02" y1="-35.56" x2="-33.02" y2="35.56" width="0.254" layer="94"/>
+<wire x1="-33.02" y1="35.56" x2="33.02" y2="35.56" width="0.254" layer="94"/>
+<wire x1="33.02" y1="35.56" x2="33.02" y2="-35.56" width="0.254" layer="94"/>
+<wire x1="33.02" y1="-35.56" x2="-33.02" y2="-35.56" width="0.254" layer="94"/>
+<pin name="CLKOUT" x="38.1" y="22.86" length="middle" rot="R180"/>
+<pin name="PADGND" x="-38.1" y="-25.4" length="middle"/>
+<text x="-7.62" y="15.24" size="2.54" layer="94">&gt;NAME</text>
+<text x="-7.62" y="-15.24" size="2.54" layer="94">&gt;VALUE</text>
 </symbol>
 </symbols>
 <devicesets>
-<deviceset name="ADE9000">
+<deviceset name="ADE9000" prefix="IC">
 <gates>
 <gate name="G$1" symbol="ADE9000" x="-48.26" y="-5.08"/>
 </gates>
