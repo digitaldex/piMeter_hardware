@@ -9,8 +9,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -18,8 +19,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -27,8 +29,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -36,8 +39,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -45,8 +49,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -54,8 +59,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -63,8 +69,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -72,8 +79,9 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
@@ -81,20 +89,53 @@
     margin-top: 10px;
     width: 100%;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    color: #999;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
+    display: inline;
+}
+
+#WATTSUMM {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
+    display: inline;
+}
+
+#VARSUMM {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
+    display: inline;
+}
+
+#VASUMM {
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 0.9em;
+    color: #000000;
     display: inline;
 }
 
 #context {
     text-align: left;
     font-family: Helvetica Neue;
-    font-size: 10px;
-    width: 150px;
-    height: 150px;
+    font-weight: 200;
+    font-size: 0.9em;
+    width: 100%;
+    height: 500px;
     margin: 10px;
     margin-top: 5px;
-    margin-left: 40px;
+    margin-left: 30px;
+    color: #999;
 }
 
 body {
@@ -105,7 +146,7 @@ body {
 .container {
   display: grid;
   grid-template-rows: 100px 1fr 100px;
-  grid-template-columns:20% 75% 5%;
+  grid-template-columns:28% 70% 2%;
 }
 
 header {

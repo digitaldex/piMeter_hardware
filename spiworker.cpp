@@ -10,10 +10,10 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define VoltageConstant     12.62544722
+#define VoltageConstant     6.312723612
 #define CurrentConstant     0.948872233
-#define PowerConstant       1.60791982
-#define EnergyConstant      0.45736386
+#define PowerConstant       0.80395991
+#define EnergyConstant      0.22868193
 
 using namespace std;
 
@@ -22,9 +22,14 @@ spiWorker::spiWorker(RingBuffer *spiDataBuffer)
     pBuffer = spiDataBuffer;
     initSPI();
     writeSPI(W_RUN_REGISTER_STOP);
-    writeSPIlong(W_AVGAIN_REGISTER);
-    writeSPIlong(W_BVGAIN_REGISTER);
-    writeSPIlong(W_CVGAIN_REGISTER);
+    writeSPI(W_PGA_GAIN_REGISTER);
+    writeSPI(W_WTHR_REGISTER);
+    writeSPI(W_VARTHR_REGISTER);
+    writeSPI(W_VATHR_REGISTER);
+    writeSPI(W_CF1DEN_REGISTER);
+    writeSPI(W_CF2DEN_REGISTER);
+    writeSPI(W_CF3DEN_REGISTER);
+    writeSPI(W_CF4DEN_REGISTER);
     writeSPIlong(W_VLEVEL_REGISTER);
     writeSPI(W_ACCMODE_REGISTER);
     writeSPI(W_EP_CFG_REGISTER);
