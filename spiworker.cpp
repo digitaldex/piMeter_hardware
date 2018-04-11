@@ -10,10 +10,10 @@
 #include <sys/time.h>
 #include <math.h>
 
-#define VoltageConstant     6.312723612
-#define CurrentConstant     0.948872233
-#define PowerConstant       0.80395991
-#define EnergyConstant      0.22868193
+#define VoltageConstant     10.74705975
+#define CurrentConstant     0.993855805
+#define PowerConstant       1.433583263
+#define EnergyConstant      0.407774795
 
 using namespace std;
 
@@ -67,39 +67,39 @@ void spiWorker::process()
         
         readSPI(spiReceive, R_AIRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("AIRMS"), ADCreturnValueUnsigned * CurrentConstant * pow(10, -6));
+        temp.insert(QStringLiteral("AIRMS"), (float)((int)(ADCreturnValueUnsigned * CurrentConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_BIRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("BIRMS"), ADCreturnValueUnsigned * CurrentConstant * pow(10, -6));
+        temp.insert(QStringLiteral("BIRMS"), (float)((int)(ADCreturnValueUnsigned * CurrentConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_CIRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("CIRMS"), ADCreturnValueUnsigned * CurrentConstant * pow(10, -6));
+        temp.insert(QStringLiteral("CIRMS"), (float)((int)(ADCreturnValueUnsigned * CurrentConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_AVRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("AVRMS"), ADCreturnValueUnsigned * VoltageConstant * pow(10, -6));
+        temp.insert(QStringLiteral("AVRMS"), (float)((int)(ADCreturnValueUnsigned * VoltageConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_BVRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("BVRMS"), ADCreturnValueUnsigned * VoltageConstant * pow(10, -6));
+        temp.insert(QStringLiteral("BVRMS"), (float)((int)(ADCreturnValueUnsigned * VoltageConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_CVRMS_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("CVRMS"), ADCreturnValueUnsigned * VoltageConstant * pow(10, -6));
+        temp.insert(QStringLiteral("CVRMS"), (float)((int)(ADCreturnValueUnsigned * VoltageConstant * pow(10, -6) * 100)) / 100.0);
         
         readSPI(spiReceive, R_AWATT_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("AWATT"), ADCreturnValueUnsigned * PowerConstant * pow(10, -3));
+        temp.insert(QStringLiteral("AWATT"), (float)((int)(ADCreturnValueUnsigned * PowerConstant * pow(10, -3) * 100)) / 100.0);
         
         readSPI(spiReceive, R_BWATT_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("BWATT"), ADCreturnValueUnsigned * PowerConstant * pow(10, -3));
+        temp.insert(QStringLiteral("BWATT"), (float)((int)(ADCreturnValueUnsigned * PowerConstant * pow(10, -3) * 100)) / 100.0);
         
         readSPI(spiReceive, R_CWATT_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        temp.insert(QStringLiteral("CWATT"), ADCreturnValueUnsigned * PowerConstant * pow(10, -3));
+        temp.insert(QStringLiteral("CWATT"), (float)((int)(ADCreturnValueUnsigned * PowerConstant * pow(10, -3) * 100)) / 100.0);
 
         readSPI(spiReceive, R_AWATTHR_HI_REGISTER);
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);

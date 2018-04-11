@@ -157,7 +157,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "title": "L1",
                                                           "id": "g8",
                                                           "type": "column",
-                                                          "cornerRadiusTop": 2,
+                                                          "cornerRadiusTop": 0,
                                                           "lineColor": "#60C21E",
                                                           "useDataSetColors": false,
                                                           "fillAlphas": 0.2
@@ -166,7 +166,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "type": "column",
                                                           "title": "L2",
                                                           "id": "g9",
-                                                          "cornerRadiusTop": 2,
+                                                          "cornerRadiusTop": 0,
                                                           "lineColor": "#159E31",
                                                           "useDataSetColors": false,
                                                           "fillAlphas": 0.2
@@ -175,7 +175,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                                           "title": "L3",
                                                           "id": "g10",
                                                           "type": "column",
-                                                          "cornerRadiusTop": 2,
+                                                          "cornerRadiusTop": 0,
                                                           "lineColor": "#53DB50",
                                                           "useDataSetColors": false,
                                                           "fillAlphas": 0.2
