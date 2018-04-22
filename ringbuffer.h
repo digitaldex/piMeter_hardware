@@ -12,7 +12,7 @@ class RingBuffer {
 private:
         int head = 0;
         int tail = 0;
-        const static int size = 3600;
+        const static int size = 43200;
         QJsonObject data[size];
         QMutex m;
 public:

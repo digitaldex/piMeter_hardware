@@ -1,10 +1,13 @@
-# piMeter - a SmartMeter HAT for Raspberry Pi
+# piMeter - a SmartMeter for Raspberry Pi
 
 ## Frontend
 ![alt text](https://github.com/digitaldex/piMeter/blob/master/visu/visu.png "Visu Screenshot")
 
 ## Board
 ![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/piMeter.png "Eagle Board Screenshot")
+
+## Case
+![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/case.png "piMeter Case Screenshot")
 
 ## Schematics
 [piMeter Schematics](https://github.com/digitaldex/piMeter/blob/master/eagle/Schematics.pdf)
