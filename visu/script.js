@@ -281,7 +281,7 @@ function initWebSocket() {
             document.getElementById("VASUMM").innerHTML = VASUMM.toFixed(2) + " kW/h";
             chartData.push.apply(chartData, newData);
             if (chartData.length > 3600) {
-                chartData.splice(0, chartData.length - 3600);
+                chartData.splice(0, chartData.length - 43200);
             }
             chart.validateData(); //call to redraw the chart with new data
         };
