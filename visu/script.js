@@ -15,6 +15,8 @@ var CVAHR_HI = 0;
 var WATTSUMM = 0;
 var VARSUMM = 0;
 var VASUMM = 0;
+var startDate = 0;
+var endDate = 0;
 
 var chart = AmCharts.makeChart( "chartdiv", {
                                "type": "stock",
@@ -202,9 +204,9 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "selectedBackgroundColor": "#FFFFFF",
                                "selectedGraphFillColor": "#A4A4A4",
                                "graph": "g2",
-                               "usePeriod": "mm",
-                               "position": "top"
-                               },
+                               "usePeriod": "hh",
+                               "position": "top"                            
+			       },
                                
                                "chartCursorSettings": {
                                "valueBalloonsEnabled": true
@@ -236,7 +238,15 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                },
                                "panelsSettings": {
                                "usePrefixes": true
-                               }
+                               },
+			       "listeners": [{
+				       "event": "zoomed",
+				       "method": function(e) {
+					       startDate= e.chart.startDate;
+					       startDate.setSeconds(startDate.getSeconds() + 1);
+					       endDate = e.chart.endDate;
+				       }
+			       }]
 } );
 
 function initWebSocket() {
@@ -279,11 +289,12 @@ function initWebSocket() {
             document.getElementById("WATTSUMM").innerHTML = WATTSUMM.toFixed(2) + " kW/h";
             document.getElementById("VARSUMM").innerHTML = VARSUMM.toFixed(2) + " kW/h";
             document.getElementById("VASUMM").innerHTML = VASUMM.toFixed(2) + " kW/h";
-            chartData.push.apply(chartData, newData);
+	    chartData.push.apply(chartData, newData);
             if (chartData.length > 3600) {
-                chartData.splice(0, chartData.length - 43200);
+                chartData.splice(0, chartData.length - 3600);
             }
             chart.validateData(); //call to redraw the chart with new data
+	    chart.zoom(startDate, endDate);
         };
         websocket.onerror = function (evt) {
         };
