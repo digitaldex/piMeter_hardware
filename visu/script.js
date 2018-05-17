@@ -225,16 +225,14 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                            "label": "1 Minute"
                                            }, {
                                            "period": "mm",
-                                           "count": 15,
-                                           "label": "15 Minuten"
+                                           "count": 5,
+                                           "label": "5 Minuten"
                                            }, {
                                            "period": "mm",
-                                           "count": 30,
-                                           "label": "30 Minuten"
-                                           }, {
-                                           "period": "MAX",
-                                           "label": "MAX"
-                                           } ]
+                                           "count": 10,
+                                           "label": "10 Minuten"
+                                           }
+			       		  ]
                                },
                                "panelsSettings": {
                                "usePrefixes": true
@@ -290,8 +288,8 @@ function initWebSocket() {
             document.getElementById("VARSUMM").innerHTML = VARSUMM.toFixed(2) + " kW/h";
             document.getElementById("VASUMM").innerHTML = VASUMM.toFixed(2) + " kW/h";
 	    chartData.push.apply(chartData, newData);
-            if (chartData.length > 3600) {
-                chartData.splice(0, chartData.length - 3600);
+            if (chartData.length > 600) {
+                chartData.splice(0, chartData.length - 600);
             }
             chart.validateData(); //call to redraw the chart with new data
 	    chart.zoom(startDate, endDate);
