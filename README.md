@@ -14,8 +14,12 @@
 
 ## Setup Raspberry Pi
 
-Enable SPI in raspi-config
-
+### Enable SPI
+```
+sudo raspi-config
+-> Interface Option
+-> Enable SPI
+```
 ### Install Dependencies
 ```
 // Install libsqlite
@@ -36,9 +40,13 @@ sudo apt-get install qt5-default
 sudo apt install libqt5websockets5-dev
 ```
 ### Install Visu
+Link visu files into lighttpd www root
+
 sudo ln -s /home/pi/piMeter/visu/index.html /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/script.js /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/style.css /var/www/html/
+
+Change Websocket IP in script.js to your Raspberry Pi IP
 
 ### Build piMeter
 ```
