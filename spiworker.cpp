@@ -6,30 +6,35 @@
 #include <thread>
 #include <iostream>
 #include <bcm2835.h>
+#include <stdio.h>
 #include "spi.h"
 #include <sys/time.h>
 #include <math.h>
 
 #define VoltageConstant     10.74705975
-#define CurrentConstant     0.993855805
-#define PowerConstant       1.433583263
-#define EnergyConstant      0.407774795
+#define CurrentConstant     2.683410674
+#define PowerConstant       3.870674811
+#define EnergyConstant      1.100991946
+#define PIN 		    RPI_BPLUS_GPIO_J8_37
 
 using namespace std;
 
 spiWorker::spiWorker(RingBuffer *spiDataBuffer)
 {
     pBuffer = spiDataBuffer;
+    bcm2835_init();
+    bcm2835_gpio_fsel(PIN, BCM2835_GPIO_FSEL_OUTP);
+    bcm2835_gpio_write(PIN, HIGH);
     initSPI();
     writeSPI(W_RUN_REGISTER_STOP);
     writeSPI(W_PGA_GAIN_REGISTER);
-    writeSPI(W_WTHR_REGISTER);
-    writeSPI(W_VARTHR_REGISTER);
-    writeSPI(W_VATHR_REGISTER);
-    writeSPI(W_CF1DEN_REGISTER);
-    writeSPI(W_CF2DEN_REGISTER);
-    writeSPI(W_CF3DEN_REGISTER);
-    writeSPI(W_CF4DEN_REGISTER);
+    //writeSPI(W_WTHR_REGISTER);
+    //writeSPI(W_VARTHR_REGISTER);
+    //writeSPI(W_VATHR_REGISTER);
+    //writeSPI(W_CF1DEN_REGISTER);
+    //writeSPI(W_CF2DEN_REGISTER);
+    //writeSPI(W_CF3DEN_REGISTER);
+    //writeSPI(W_CF4DEN_REGISTER);
     writeSPIlong(W_VLEVEL_REGISTER);
     writeSPI(W_ACCMODE_REGISTER);
     writeSPI(W_EP_CFG_REGISTER);

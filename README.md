@@ -19,11 +19,11 @@ Enable SPI in raspi-config
 ### Install Dependencies
 ```
 // Install libsqlite
-apt-get install libsqlite3-dev
+sudo apt-get install libsqlite3-dev
 // Install lighttpd
-apt-get install lighttpd
+sudo apt-get install lighttpd
 // Install php with Modules
-apt-get install php7.0-fpm php7.0 php7.0-sqlite
+sudo apt-get install php7.0-fpm php7.0 php7.0-sqlite
 // Install bcm2835 Library
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
 tar zxvf bcm2835-1.52.tar.gz
@@ -33,9 +33,12 @@ sudo make check
 sudo make install
 // Install Qt
 sudo apt-get install qt5-default
+sudo apt install libqt5websockets5-dev
 ```
 ### Install Visu
-Just Copy the Visu Folder into your lighttpd www root
+sudo ln -s /home/pi/piMeter/visu/index.html /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/script.js /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/style.css /var/www/html/
 
 ### Build piMeter
 ```

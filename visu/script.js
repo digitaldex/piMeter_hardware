@@ -1,5 +1,5 @@
 var chartData = [];
-var wsUri = "ws://10.11.12.16:8888";
+var wsUri = "ws://10.11.12.130:8888";
 var websocket = null;
 var interval = null;
 
