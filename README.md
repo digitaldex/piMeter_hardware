@@ -13,8 +13,6 @@
 [piMeter Schematics](https://github.com/digitaldex/piMeter/blob/master/eagle/Schematics.pdf)
 
 
-
-
 ## Setup Raspberry Pi
 
 ### Enable SPI
@@ -44,11 +42,11 @@ sudo apt install libqt5websockets5-dev
 ```
 ### Install Visu
 Link visu files into lighttpd www root
-
+```
 sudo ln -s /home/pi/piMeter/visu/index.html /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/script.js /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/style.css /var/www/html/
-
+```
 Change Websocket IP in script.js to your Raspberry Pi IP
 
 ### Build piMeter
