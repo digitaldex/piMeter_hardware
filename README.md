@@ -12,6 +12,9 @@
 ## Schematics
 [piMeter Schematics](https://github.com/digitaldex/piMeter/blob/master/eagle/Schematics.pdf)
 
+
+
+
 ## Setup Raspberry Pi
 
 ### Enable SPI
