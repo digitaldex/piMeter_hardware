@@ -73,8 +73,6 @@ sudo ./piMeter &
 
 [bcm2835 Library](http://www.airspayce.com/mikem/bcm2835/)
 
-[libsqlite3 Library](https://github.com/LuaDist/libsqlite3)
-
 [lighttpd Webserver](https://www.lighttpd.net)
 
 [amCharts Chart Library](https://www.amcharts.com)
