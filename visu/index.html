@@ -10,8 +10,8 @@
       <h1>Dashboard</h1>
       </header>
       <main>	    
-      <h2>Tagesverbrauch</h2>
-      <div align="right"><input name="date" type="text" maxlength="11" id="date"/><button onClick="updateGraph();">Update</button></div>
+      <h2>Tagesverbrauch vom: <div id="actualDate">0</div></h2>
+      <div align="right"><input name="date" type="text" maxlength="10" id="date" value="dd-mm-yyyy"/><button onClick="updateGraph();">Update</button></div>
       <div id="chartdiv"></div>
       </main>
       <left>
