@@ -3,18 +3,6 @@ var wsUri = "ws://10.11.12.130:8888";
 var websocket = null;
 var interval = null;
 
-var AWATTHR_HI = 0;
-var BWATTHR_HI = 0;
-var CWATTHR_HI = 0;
-var AVARHR_HI = 0;
-var BVARHR_HI = 0;
-var CVARHR_HI = 0;
-var AVAHR_HI = 0;
-var BVAHR_HI = 0;
-var CVAHR_HI = 0;
-var WATTSUMM = 0;
-var VARSUMM = 0;
-var VASUMM = 0;
 var startDate = 0;
 var endDate = 0;
 
@@ -261,32 +249,8 @@ function initWebSocket() {
         websocket.onclose = function (evt) {
         };
         websocket.onmessage = function (evt) {
-            //console.log( "Message received :", evt.data );
+            // console.log( "Message received :", evt.data );
             var newData = JSON.parse(evt.data);
-            AWATTHR_HI = (newData[0]["AWATTHR_HI"]);
-            BWATTHR_HI = (newData[0]["BWATTHR_HI"]);
-            CWATTHR_HI = (newData[0]["CWATTHR_HI"]);
-            AVARHR_HI = (newData[0]["AVARHR_HI"]);
-            BVARHR_HI = (newData[0]["BVARHR_HI"]);
-            CVARHR_HI = (newData[0]["CVARHR_HI"]);
-            AVAHR_HI = (newData[0]["AVAHR_HI"]);
-            BVAHR_HI = (newData[0]["BVAHR_HI"]);
-            CVAHR_HI = (newData[0]["CVAHR_HI"]);
-            WATTSUMM = (AWATTHR_HI + BWATTHR_HI + CWATTHR_HI) / 1000;
-            VARSUMM = (AVARHR_HI + BVARHR_HI + CVARHR_HI) / 1000;
-            VASUMM = (AVAHR_HI + BVAHR_HI + CVAHR_HI) / 1000;
-            document.getElementById("AWATTHR").innerHTML = AWATTHR_HI.toFixed(2) + " W/h";
-            document.getElementById("BWATTHR").innerHTML = BWATTHR_HI.toFixed(2) + " W/h";
-            document.getElementById("CWATTHR").innerHTML = CWATTHR_HI.toFixed(2) + " W/h";
-            document.getElementById("AVARHR").innerHTML = AVARHR_HI.toFixed(2) + " W/h";
-            document.getElementById("BVARHR").innerHTML = BVARHR_HI.toFixed(2) + " W/h";
-            document.getElementById("CVARHR").innerHTML = CVARHR_HI.toFixed(2) + " W/h";
-            document.getElementById("AVAHR").innerHTML = AVAHR_HI.toFixed(2) + " W/h";
-            document.getElementById("BVAHR").innerHTML = BVAHR_HI.toFixed(2) + " W/h";
-            document.getElementById("CVAHR").innerHTML = CVAHR_HI.toFixed(2) + " W/h";
-            document.getElementById("WATTSUMM").innerHTML = WATTSUMM.toFixed(2) + " kW/h";
-            document.getElementById("VARSUMM").innerHTML = VARSUMM.toFixed(2) + " kW/h";
-            document.getElementById("VASUMM").innerHTML = VASUMM.toFixed(2) + " kW/h";
 	    chartData.push.apply(chartData, newData);
             if (chartData.length > 600) {
                 chartData.splice(0, chartData.length - 600);

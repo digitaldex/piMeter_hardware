@@ -6,9 +6,33 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include "mysql.h"
 
 
 QT_USE_NAMESPACE
+
+void WebSocketServer::parseMessage(QString message, QJsonArray &arr) {
+    
+    mySQLhandler sql;
+    sql.initDBconnection();
+    int var = 0;
+    if(message == "start") {
+        var = 10;
+    } else {
+        var = 20;
+    }
+    switch(var) {
+        case 10:
+            while(!pBuffer->empty) {
+                arr.push_back(pBuffer->pop());
+            }
+        break;
+        case 20:
+            arr = sql.getDayConsumption(message);
+        break;
+    }
+}
+
 
 WebSocketServer::WebSocketServer(quint16 port, RingBuffer *spiDataBuffer, QObject *parent) :
     QObject(parent),
@@ -44,15 +68,11 @@ void WebSocketServer::processTextMessage(QString message)
     QWebSocket *pClient = qobject_cast<QWebSocket *>(sender());
     QJsonObject sendBuffer;
     QJsonArray sendArray;
-    while(!pBuffer->empty) {
-        sendArray.push_back(pBuffer->pop());
-    }
+    parseMessage(message, sendArray);
     QJsonDocument doc(sendArray);
     QString strJson(doc.toJson(QJsonDocument::Compact));
     if (pClient) {
-        if (message == "start") {
             pClient->sendTextMessage(strJson);
-        }
     }
 }
 

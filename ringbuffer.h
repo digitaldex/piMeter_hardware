@@ -16,7 +16,6 @@ private:
         QJsonObject data[size];
         QMutex m;
 public:
-    //RingBuffer();
     bool empty = true;
     void push(QJsonObject spiData) {
         m.lock();

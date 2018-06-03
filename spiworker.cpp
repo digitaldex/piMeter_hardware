@@ -8,8 +8,10 @@
 #include <bcm2835.h>
 #include <stdio.h>
 #include "spi.h"
+#include "mysql.h"
 #include <sys/time.h>
 #include <math.h>
+#include <string>
 
 #define VoltageConstant     10.74705975
 #define CurrentConstant     2.683410674
@@ -46,8 +48,10 @@ spiWorker::~spiWorker() {
     
 }
 
-void spiWorker::process()
-{
+void spiWorker::process() {
+    string Timestamp2;
+    int timeVar = 1;
+    mySQLhandler sql;
     QJsonObject temp;
     time_t rawtime;
     struct tm * timeinfo;
@@ -56,7 +60,9 @@ void spiWorker::process()
     QString Timestamp;
     uint32_t ADCreturnValueUnsigned;
     char spiReceive[8];
-    float AWATT = 0, BWATT = 0, CWATT = 0, AVAR = 0, BVAR = 0, CVAR = 0, AVA = 0, BVA = 0, CVA = 0;
+    float AWATTHR = 0, BWATTHR = 0, CWATTHR = 0, AVARHR = 0, BVARHR = 0, CVARHR = 0, AVAHR = 0, BVAHR = 0, CVAHR = 0;
+    sql.initDBconnection();
+    sql.getInitialValues(AWATTHR, BWATTHR, CWATTHR, AVARHR, BVARHR, CVARHR, AVAHR, BVAHR, CVAHR);
 
     while(1) {
         timeval curTime;
@@ -67,6 +73,7 @@ void spiWorker::process()
         strftime(timebuffer, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
         sprintf(currentTime, "%s:%d", timebuffer, milli);
         Timestamp = currentTime;
+	    Timestamp2 = currentTime;
         
         temp.insert(QStringLiteral("Timestamp"), Timestamp);
         
@@ -106,53 +113,51 @@ void spiWorker::process()
         ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
         temp.insert(QStringLiteral("CWATT"), (float)((int)(ADCreturnValueUnsigned * PowerConstant * pow(10, -3) * 100)) / 100.0);
 
-        readSPI(spiReceive, R_AWATTHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        AWATT += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("AWATTHR_HI"), AWATT);
-        
-        readSPI(spiReceive, R_BWATTHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        BWATT += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("BWATTHR_HI"), BWATT);
-        
-        readSPI(spiReceive, R_CWATTHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        CWATT += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("CWATTHR_HI"), CWATT);
-        
-        readSPI(spiReceive, R_AVARHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        AVAR += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("AVARHR_HI"), AVAR);
-        
-        readSPI(spiReceive, R_BVARHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        BVAR += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("BVARHR_HI"), BVAR);
-        
-        readSPI(spiReceive, R_CVARHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        CVAR += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("CVARHR_HI"), CVAR);
-        
-        readSPI(spiReceive, R_AVAHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        AVA += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("AVAHR_HI"), AVA);
-        
-        readSPI(spiReceive, R_BVAHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        BVA += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("BVAHR_HI"), BVA);
-        
-        readSPI(spiReceive, R_CVAHR_HI_REGISTER);
-        ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
-        CVA += ADCreturnValueUnsigned * EnergyConstant * pow(10, -6);
-        temp.insert(QStringLiteral("CVAHR_HI"), CVA);
+        if(timeVar == 60) {
+            readSPI(spiReceive, R_AWATTHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            AWATTHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_BWATTHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            BWATTHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_CWATTHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            CWATTHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_AVARHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            AVARHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_BVARHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            BVARHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_CVARHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            CVARHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_AVAHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            AVAHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_BVAHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            BVAHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+            
+            readSPI(spiReceive, R_CVAHR_HI_REGISTER);
+            ADCreturnValueUnsigned = parse32bitReturnValue(spiReceive);
+            CVAHR += (float)((int)(ADCreturnValueUnsigned * EnergyConstant * pow(10, -6) * 100)) / 100.0;
+	    
+            sql.writeConsumptionTable(Timestamp2, AWATTHR, BWATTHR, CWATTHR, AVARHR, BVARHR, CVARHR, AVAHR, BVAHR, CVAHR);
+	    
+	        timeVar = 0;
+        }
 
         
         pBuffer->push(temp);
+        timeVar++;
         sleep(1);
     }
 }

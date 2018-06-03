@@ -23,6 +23,7 @@ private Q_SLOTS:
     void onNewConnection();
     void processTextMessage(QString message);
     void socketDisconnected();
+    void parseMessage(QString message, QJsonArray &arr);
 
 private:
     RingBuffer *pBuffer;

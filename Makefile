@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_WEBSOCKETS_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -isystem /usr/include/arm-linux-gnueabihf/qt5 -isystem /usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -isystem /usr/include/arm-linux-gnueabihf/qt5/QtNetwork -isystem /usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++
+INCPATH       = -I. -isystem /usr/local/include -isystem /usr/local/include/cppconn -isystem /usr/include/arm-linux-gnueabihf/qt5 -isystem /usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -isystem /usr/include/arm-linux-gnueabihf/qt5/QtNetwork -isystem /usr/include/arm-linux-gnueabihf/qt5/QtCore -I. -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/arm-linux-gnueabihf/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = piMeter1.0.0
 DISTDIR = /home/pi/piMeter/.tmp/piMeter1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
-LIBS          = $(SUBLIBS) -L/usr/local/lib -lbcm2835 -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
+LIBS          = $(SUBLIBS) -L/usr/local/lib -lbcm2835 -lmysqlcppconn -lQt5WebSockets -lQt5Network -lQt5Core -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -50,11 +50,13 @@ OBJECTS_DIR   = ./
 
 SOURCES       = main.cpp \
 		WebSocketServer.cpp \
-		spiworker.cpp moc_WebSocketServer.cpp \
+		spiworker.cpp \
+		mysql.cpp moc_WebSocketServer.cpp \
 		moc_spiworker.cpp
 OBJECTS       = main.o \
 		WebSocketServer.o \
 		spiworker.o \
+		mysql.o \
 		moc_WebSocketServer.o \
 		moc_spiworker.o
 DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
@@ -119,9 +121,12 @@ DIST          = /usr/lib/arm-linux-gnueabihf/qt5/mkspecs/features/spec_pre.prf \
 		piMeter.pro WebSocketServer.h \
 		ringbuffer.h \
 		spi.h \
-		spiworker.h main.cpp \
+		spiworker.h \
+		mysql.h \
+		login.h main.cpp \
 		WebSocketServer.cpp \
-		spiworker.cpp
+		spiworker.cpp \
+		mysql.cpp
 QMAKE_TARGET  = piMeter
 DESTDIR       = 
 TARGET        = piMeter
@@ -274,8 +279,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents WebSocketServer.h ringbuffer.h spi.h spiworker.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp WebSocketServer.cpp spiworker.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents WebSocketServer.h ringbuffer.h spi.h spiworker.h mysql.h login.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp WebSocketServer.cpp spiworker.cpp mysql.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -307,12 +312,12 @@ compiler_moc_header_clean:
 moc_WebSocketServer.cpp: ringbuffer.h \
 		WebSocketServer.h \
 		/usr/lib/arm-linux-gnueabihf/qt5/bin/moc
-	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include WebSocketServer.h -o moc_WebSocketServer.cpp
+	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/local/include -I/usr/local/include/cppconn -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include WebSocketServer.h -o moc_WebSocketServer.cpp
 
 moc_spiworker.cpp: ringbuffer.h \
 		spiworker.h \
 		/usr/lib/arm-linux-gnueabihf/qt5/bin/moc
-	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include spiworker.h -o moc_spiworker.cpp
+	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/local/include -I/usr/local/include/cppconn -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include spiworker.h -o moc_spiworker.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -337,8 +342,14 @@ WebSocketServer.o: WebSocketServer.cpp WebSocketServer.h \
 
 spiworker.o: spiworker.cpp spiworker.h \
 		ringbuffer.h \
-		spi.h
+		spi.h \
+		mysql.h \
+		login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spiworker.o spiworker.cpp
+
+mysql.o: mysql.cpp mysql.h \
+		login.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mysql.o mysql.cpp
 
 moc_WebSocketServer.o: moc_WebSocketServer.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_WebSocketServer.o moc_WebSocketServer.cpp

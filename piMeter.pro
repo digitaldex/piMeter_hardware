@@ -11,9 +11,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     WebSocketServer.cpp \
-    spiworker.cpp
+    spiworker.cpp \
+    mysql.cpp \
 
-LIBS += -L/usr/local/lib -lbcm2835
+LIBS += -L/usr/local/lib -lbcm2835 -lmysqlcppconn
+
+INCLUDEPATH += /usr/local/include /usr/local/include/cppconn
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -30,5 +33,7 @@ HEADERS += \
     WebSocketServer.h \
     ringbuffer.h \
     spi.h \
-    spiworker.h
+    spiworker.h \
+    mysql.h \
+    login.h \
 

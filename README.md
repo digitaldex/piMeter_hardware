@@ -23,12 +23,8 @@ sudo raspi-config
 ```
 ### Install Dependencies
 ```
-// Install libsqlite
-sudo apt-get install libsqlite3-dev
 // Install lighttpd
 sudo apt-get install lighttpd
-// Install php with Modules
-sudo apt-get install php7.0-fpm php7.0 php7.0-sqlite
 // Install bcm2835 Library
 wget http://www.airspayce.com/mikem/bcm2835/bcm2835-1.52.tar.gz
 tar zxvf bcm2835-1.52.tar.gz
@@ -44,10 +40,20 @@ sudo apt install libqt5websockets5-dev
 Link visu files into lighttpd www root
 ```
 sudo ln -s /home/pi/piMeter/visu/index.html /var/www/html/
-sudo ln -s /home/pi/piMeter/visu/script.js /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/realtime.html /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/intraDay.js /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/realtime.js /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/style.css /var/www/html/
 ```
-Change Websocket IP in script.js to your Raspberry Pi IP
+Change Websocket IP in intraDay.js and realtime.js to your Raspberry Pi IP
+
+Create a file called login.h in piMeter Directory and add your MySQL/MariaDB Credentials
+```
+#define HOST "tcp://ip:port"
+#define USER "user"
+#define PASS "pass"
+#define DB "dbname"
+```
 
 ### Build piMeter
 ```

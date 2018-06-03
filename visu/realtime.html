@@ -10,7 +10,8 @@
       <h1>Dashboard</h1>
       </header>
       <main>	    
-      <h2>Tagesverbrauch</h2>
+      <h2>Real Time Daten</h2>
+      <div align="right"><button onClick="initWebSocket();">Connect</button><button onClick="stopWebSocket();">Disconnect</button></div>
       <div id="chartdiv"></div>
       </main>
       <left>
@@ -24,6 +25,6 @@
     <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
     <script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
     
-    <script src=intraDay.js></script>
+    <script src=realtime.js></script>
   </body>
 </html>

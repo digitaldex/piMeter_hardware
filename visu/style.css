@@ -146,7 +146,7 @@ body {
 .container {
   display: grid;
   grid-template-rows: 100px 1fr 100px;
-  grid-template-columns:28% 70% 2%;
+  grid-template-columns:10% 80% 10%;
 }
 
 header {
