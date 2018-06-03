@@ -16,9 +16,9 @@ void WebSocketServer::parseMessage(QString message, QJsonArray &arr) {
     mySQLhandler sql;
     sql.initDBconnection();
     int var = 0;
-    if(message == "realtime") {
+    if(message == "start") {
         var = 10;
-    } if(message =="init") {
+    } else if(message == "init") {
         var = 20;
     } else {
         var = 30;

@@ -194,7 +194,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
                                "graph": "g2",
                                "usePeriod": "hh",
                                "position": "top"                            
-			       },
+			                         },
                                
                                "chartCursorSettings": {
                                "valueBalloonsEnabled": true
@@ -244,7 +244,7 @@ function initWebSocket() {
             websocket.close();
         websocket = new WebSocket( wsUri );
         websocket.onopen = function (evt) {
-            websocket.send( "realtime" );
+            websocket.send( "start" );
             interval = setInterval(refresh , 1000);
         };
         websocket.onclose = function (evt) {
@@ -252,12 +252,12 @@ function initWebSocket() {
         websocket.onmessage = function (evt) {
             // console.log( "Message received :", evt.data );
             var newData = JSON.parse(evt.data);
-	    chartData.push.apply(chartData, newData);
+	          chartData.push.apply(chartData, newData);
             if (chartData.length > 600) {
                 chartData.splice(0, chartData.length - 600);
             }
             chart.validateData(); //call to redraw the chart with new data
-	    chart.zoom(startDate, endDate);
+	          chart.zoom(startDate, endDate);
         };
         websocket.onerror = function (evt) {
         };
@@ -266,7 +266,7 @@ function initWebSocket() {
     }
 }
 function refresh() {
-    	websocket.send( "realtime" );
+    	websocket.send( "start" );
 }
 
 function stopWebSocket() {

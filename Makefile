@@ -337,7 +337,9 @@ main.o: main.cpp spiworker.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 WebSocketServer.o: WebSocketServer.cpp WebSocketServer.h \
-		ringbuffer.h
+		ringbuffer.h \
+		mysql.h \
+		login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WebSocketServer.o WebSocketServer.cpp
 
 spiworker.o: spiworker.cpp spiworker.h \
