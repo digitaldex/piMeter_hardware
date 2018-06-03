@@ -1,7 +1,9 @@
 # piMeter - a SmartMeter for Raspberry Pi
 
 ## Frontend
-![alt text](https://github.com/digitaldex/piMeter/blob/master/visu/visu.png "Visu Screenshot")
+![alt text](https://github.com/digitaldex/piMeter/blob/master/visu/visu1.png "Visu Screenshot")
+
+![alt text](https://github.com/digitaldex/piMeter/blob/master/visu/visu2.png "Visu2 Screenshot")
 
 ## Board
 ![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/piMeter.png "Eagle Board Screenshot")
