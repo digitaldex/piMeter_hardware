@@ -235,6 +235,7 @@ var chart = AmCharts.makeChart( "chartdiv", {
 			       }]
 } );
 
+initWebSocket();
 function initWebSocket() {
     try {
         if (typeof MozWebSocket == 'function')
@@ -243,7 +244,7 @@ function initWebSocket() {
             websocket.close();
         websocket = new WebSocket( wsUri );
         websocket.onopen = function (evt) {
-            websocket.send( "start" );
+            websocket.send( "realtime" );
             interval = setInterval(refresh , 1000);
         };
         websocket.onclose = function (evt) {
@@ -265,7 +266,7 @@ function initWebSocket() {
     }
 }
 function refresh() {
-    	websocket.send( "start" );
+    	websocket.send( "realtime" );
 }
 
 function stopWebSocket() {

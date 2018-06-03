@@ -16,10 +16,12 @@ void WebSocketServer::parseMessage(QString message, QJsonArray &arr) {
     mySQLhandler sql;
     sql.initDBconnection();
     int var = 0;
-    if(message == "start") {
+    if(message == "realtime") {
         var = 10;
-    } else {
+    } if(message =="init") {
         var = 20;
+    } else {
+        var = 30;
     }
     switch(var) {
         case 10:
@@ -28,6 +30,9 @@ void WebSocketServer::parseMessage(QString message, QJsonArray &arr) {
             }
         break;
         case 20:
+            arr = sql.getTotalConsumption();
+        break;
+        case 30:
             arr = sql.getDayConsumption(message);
         break;
     }

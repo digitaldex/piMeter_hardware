@@ -92,6 +92,28 @@ QJsonArray mySQLhandler::getDayConsumption(QString Date) {
   return returnData;
 }
 
+QJsonArray mySQLhandler::getTotalConsumption() {
+  QJsonObject object;
+  QJsonArray returnData;
+  try {
+    pstmt = con->prepareStatement("SELECT awatthr, bwatthr, cwatthr FROM consumption_table WHERE id = (SELECT MAX(id) FROM consumption_table)");
+      res = pstmt->executeQuery();
+      while(res->next()) {
+          object.insert(QStringLiteral("TotalL1watt"), float(res->getDouble("awatthr")));
+          object.insert(QStringLiteral("TotalL2watt"), float(res->getDouble("bwatthr")));
+          object.insert(QStringLiteral("TotalL3watt"), float(res->getDouble("cwatthr")));
+          returnData.push_back(object);
+      }
+      delete res;
+      delete pstmt;
+    } catch (sql::SQLException &e) {
+      cout << "# ERR: " << e.what();
+      cout << " (MySQL error code: " << e.getErrorCode();
+      cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+  }
+  return returnData;
+}
+
 mySQLhandler::~mySQLhandler() {
 	driver->threadEnd();
 }

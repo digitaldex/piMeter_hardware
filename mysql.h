@@ -25,6 +25,7 @@ class mySQLhandler {
 		void writeConsumptionTable(string &value1, float &value2, float &value3, float &value4, float &value5, float &value6, float &value7, float &value8, float &value9, float &value10);
 		void getInitialValues(float &awatthr, float &bwatthr, float &cwatthr, float &avarhr, float &bvarhr, float &cvarhr, float &avahr, float &bvahr, float &cvahr);
 		QJsonArray getDayConsumption(QString Date);
+		QJsonArray getTotalConsumption();
 
 	private:
 		sql::Driver *driver;

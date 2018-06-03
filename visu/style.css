@@ -15,6 +15,61 @@
     display: inline;
 }
 
+#TotalAwatt {
+  text-align: right;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 1.0em;
+    color: #000000;
+    display: inline;
+}
+
+#TotalBwatt {
+  text-align: right;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 1.0em;
+    color: #000000;
+    display: inline;
+}
+
+#TotalCwatt {
+  text-align: right;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 1.0em;
+    color: #000000;
+    display: inline;
+}
+
+#TotalWatt {
+    text-align: right;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 1.0em;
+    color: #000000;
+    display: inline;
+}
+
+#text {
+    text-align: left;
+    margin-top: 10px;
+    width: 100%;
+    font-family: Helvetica Neue;
+    font-weight: 200;
+    font-size: 1.0em;
+    color: #999;
+    display: inline;
+}
+
 #context {
     text-align: left;
     font-family: Helvetica Neue;
@@ -36,7 +91,7 @@ body {
 .container {
   display: grid;
   grid-template-rows: 100px 1fr 100px;
-  grid-template-columns:10% 80% 10%;
+  grid-template-columns:15% 75% 10%;
 }
 
 header {
