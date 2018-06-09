@@ -1,10 +1,6 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QCommandLineParser>
 #include <QtCore/QCommandLineOption>
-#include <QJsonObject>
-#include <QThread>
-#include <iostream>
-#include <bcm2835.h>
 #include "spiworker.h"
 #include "ringbuffer.h"
 #include "WebSocketServer.h"

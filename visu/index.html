@@ -10,8 +10,10 @@
       <h1>Dashboard</h1>
       </header>
       <main>	    
-      <h2>Tagesverbrauch vom: <div id="actualDate">0</div></h2>
-      <div align="right"><input name="date" type="text" maxlength="10" id="date" value="dd-mm-yyyy"/><button onClick="updateGraph();">Update</button></div>
+      <h2>Verbrauch vom: <div id="actualDate">0</div></h2>
+      <div align="right"><input name="date" type="text" maxlength="10" id="date" value="yyyy-mm-dd"/><button onClick="getDay();" style="width: 50px">Tag</button></div>
+      <div align="right"><input name="month" type="text" maxlength="10" id="month" value="yyyy-mm"/><button onClick="getMonth();" style="width: 50px">Monat</button></div>
+      <div align="right"><input name="year" type="text" maxlength="10" id="year" value="yyyy"/><button onClick="getYear();" style="width: 50px">Jahr</button></div>
       <div id="chartdiv"></div>
       </main>
       <left>
@@ -29,6 +31,6 @@
     <script src="https://www.amcharts.com/lib/3/amstock.js"></script>
     <script src="http://www.amcharts.com/lib/3/plugins/dataloader/dataloader.min.js"></script>
     
-    <script src=intraDay.js></script>
+    <script src=consumption.js></script>
   </body>
 </html>

@@ -1,3 +1,6 @@
+#ifndef MYSQL_H
+#define MYSQL_H
+
 #include <stdlib.h>
 #include <iostream>
 #include <QJsonObject>
@@ -24,7 +27,7 @@ class mySQLhandler {
 		int initDBconnection();
 		void writeConsumptionTable(string &value1, float &value2, float &value3, float &value4, float &value5, float &value6, float &value7, float &value8, float &value9, float &value10);
 		void getInitialValues(float &awatthr, float &bwatthr, float &cwatthr, float &avarhr, float &bvarhr, float &cvarhr, float &avahr, float &bvahr, float &cvahr);
-		QJsonArray getDayConsumption(QString Date);
+		QJsonArray getConsumption(QString Date);
 		QJsonArray getTotalConsumption();
 
 	private:
@@ -34,3 +37,5 @@ class mySQLhandler {
   		sql::PreparedStatement *pstmt;
   		sql::ResultSet *res;
 };
+
+#endif

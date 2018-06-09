@@ -1,10 +1,17 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "QtWebSockets/qwebsocketserver.h"
+#include "QtWebSockets/qwebsocket.h"
+#include <QJsonArray>
+#include <QJsonValue>
+#include <QJsonObject>
+#include <QJsonDocument>
 #include <QtCore/QObject>
 #include <QtCore/QList>
 #include <QtCore/QByteArray>
 #include "ringbuffer.h"
+#include "mysql.h"
 
 QT_FORWARD_DECLARE_CLASS(QWebSocketServer)
 QT_FORWARD_DECLARE_CLASS(QWebSocket)
@@ -31,4 +38,4 @@ private:
     QList<QWebSocket *> m_clients;
 };
 
-#endif // SERVER_H
+#endif

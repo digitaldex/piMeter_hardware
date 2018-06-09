@@ -1,3 +1,6 @@
+#ifndef SPI_H
+#define SPI_H
+
 using namespace std;
 
 #define WORD_SIZE_READ          8U
@@ -67,7 +70,7 @@ using namespace std;
 #define W_CF4DEN_REGISTER       0b01001001011100000010110001111100
 #define W_EGY_TIME_REGISTER	0b01001011001000000000000111111111
 
-int initSPI() {
+inline int initSPI() {
     if(!bcm2835_init()) {
         return 1;
     }
@@ -83,18 +86,18 @@ int initSPI() {
     return 0;
 }
 
-void closeSPI() {
+inline void closeSPI() {
     bcm2835_spi_end();
     bcm2835_close();
 }
 
-void resizeWord16(char byte[], unsigned short word) {
+inline void resizeWord16(char byte[], unsigned short word) {
     /* Split 16bit SPI Commmand Word into 2 Bytes for Read Operation */
 	byte[0] = word >> 8;
 	byte[1] = word & 0xFF;
 }
 
-void resizeWord32(char byte[], unsigned int word) {
+inline void resizeWord32(char byte[], unsigned int word) {
     /* Split 32bit SPI Commmand Word into 4 Bytes for Write Operation */
 	byte[0] = word >> 24;
 	byte[1] = word >> 16;
@@ -102,7 +105,7 @@ void resizeWord32(char byte[], unsigned int word) {
 	byte[3] = word & 0xFF;
 }
 
-void resizeWord48(char byte[], uint64_t word) {
+inline void resizeWord48(char byte[], uint64_t word) {
     byte[0] = word >> 40;
     byte[1] = word >> 32;
     byte[2] = word >> 24;
@@ -111,7 +114,7 @@ void resizeWord48(char byte[], uint64_t word) {
     byte[5] = word & 0xFF;
 }
 
-uint32_t parse32bitReturnValue(char byte[]) {
+inline uint32_t parse32bitReturnValue(char byte[]) {
     /* Shift Char Array into uint32_t */
     /* First two Bytes are SPI Read Command Echo */
     /* Last two Bytes are CRC for Debug purpose */
@@ -133,7 +136,7 @@ uint32_t parse32bitReturnValue(char byte[]) {
     return value;
 }
 
-uint16_t parse16bitReturnValue(char byte[]) {
+inline uint16_t parse16bitReturnValue(char byte[]) {
     /* Shift Char Array into uint16_t */
     /* First two Bytes are SPI Read Command Echo */
 	uint16_t value = 0;
@@ -143,7 +146,7 @@ uint16_t parse16bitReturnValue(char byte[]) {
 	return value;
 }
 
-void writeSPI(unsigned int word) {
+inline void writeSPI(unsigned int word) {
     /* The Register Write WORD is shifted into 4 Bytes */
     /* and gets transfered over SPI Bus */
     char spiWriteCommand[4];
@@ -152,7 +155,7 @@ void writeSPI(unsigned int word) {
     usleep(50);
 }
 
-void writeSPIlong(uint64_t word) {
+inline void writeSPIlong(uint64_t word) {
     /* The Register Write WORD is shifted into 6 Bytes */
     /* and gets transfered over SPI Bus */
     char spiWriteCommand[6];
@@ -161,7 +164,7 @@ void writeSPIlong(uint64_t word) {
     usleep(50);
 }
 
-void readSPI(char spiReceive[], unsigned short word) {
+inline void readSPI(char spiReceive[], unsigned short word) {
     /* The Register Read WORD is shifted into 2 Bytes */
     /* and gets transfered over SPI Bus */
     /* The Response ist stored in spiReceive Array */
@@ -170,3 +173,5 @@ void readSPI(char spiReceive[], unsigned short word) {
     bcm2835_spi_transfernb(spiReadCommand, spiReceive, WORD_SIZE_READ);
     usleep(50);
 }
+
+#endif

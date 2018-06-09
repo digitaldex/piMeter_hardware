@@ -1,13 +1,4 @@
 #include "WebSocketServer.h"
-#include "QtWebSockets/qwebsocketserver.h"
-#include "QtWebSockets/qwebsocket.h"
-#include <QtCore/QDebug>
-#include <QJsonArray>
-#include <QJsonValue>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include "mysql.h"
-
 
 QT_USE_NAMESPACE
 
@@ -33,7 +24,7 @@ void WebSocketServer::parseMessage(QString message, QJsonArray &arr) {
             arr = sql.getTotalConsumption();
         break;
         case 30:
-            arr = sql.getDayConsumption(message);
+            arr = sql.getConsumption(message);
         break;
     }
 }

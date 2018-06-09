@@ -43,11 +43,11 @@ Link visu files into lighttpd www root
 ```
 sudo ln -s /home/pi/piMeter/visu/index.html /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/realtime.html /var/www/html/
-sudo ln -s /home/pi/piMeter/visu/intraDay.js /var/www/html/
+sudo ln -s /home/pi/piMeter/visu/consumption.js /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/realtime.js /var/www/html/
 sudo ln -s /home/pi/piMeter/visu/style.css /var/www/html/
 ```
-Change Websocket IP in intraDay.js and realtime.js to your Raspberry Pi IP
+Change Websocket IP in consumption.js and realtime.js to your Raspberry Pi IP
 
 Create a file called login.h in piMeter Directory and add your MySQL/MariaDB Credentials
 ```

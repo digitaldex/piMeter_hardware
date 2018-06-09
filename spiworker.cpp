@@ -1,17 +1,4 @@
 #include "spiworker.h"
-#include <unistd.h>
-#include <stdint.h>
-#include <QThread>
-#include <time.h>
-#include <thread>
-#include <iostream>
-#include <bcm2835.h>
-#include <stdio.h>
-#include "spi.h"
-#include "mysql.h"
-#include <sys/time.h>
-#include <math.h>
-#include <string>
 
 #define VoltageConstant     10.74705975
 #define CurrentConstant     2.683410674

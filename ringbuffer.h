@@ -43,4 +43,4 @@ public:
     }
 };
 
-#endif // RINGBUFFER_H
+#endif

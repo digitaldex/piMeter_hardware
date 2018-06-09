@@ -314,7 +314,10 @@ moc_WebSocketServer.cpp: ringbuffer.h \
 		/usr/lib/arm-linux-gnueabihf/qt5/bin/moc
 	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/local/include -I/usr/local/include/cppconn -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include WebSocketServer.h -o moc_WebSocketServer.cpp
 
-moc_spiworker.cpp: ringbuffer.h \
+moc_spiworker.cpp: spi.h \
+		mysql.h \
+		login.h \
+		ringbuffer.h \
 		spiworker.h \
 		/usr/lib/arm-linux-gnueabihf/qt5/bin/moc
 	/usr/lib/arm-linux-gnueabihf/qt5/bin/moc $(DEFINES) -I/usr/lib/arm-linux-gnueabihf/qt5/mkspecs/linux-g++ -I/home/pi/piMeter -I/usr/local/include -I/usr/local/include/cppconn -I/usr/include/arm-linux-gnueabihf/qt5 -I/usr/include/arm-linux-gnueabihf/qt5/QtWebSockets -I/usr/include/arm-linux-gnueabihf/qt5/QtNetwork -I/usr/include/arm-linux-gnueabihf/qt5/QtCore -I/usr/include/c++/6 -I/usr/include/arm-linux-gnueabihf/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/arm-linux-gnueabihf/6/include -I/usr/local/include -I/usr/lib/gcc/arm-linux-gnueabihf/6/include-fixed -I/usr/include/arm-linux-gnueabihf -I/usr/include spiworker.h -o moc_spiworker.cpp
@@ -332,21 +335,22 @@ compiler_clean: compiler_moc_header_clean
 ####### Compile
 
 main.o: main.cpp spiworker.h \
+		spi.h \
+		mysql.h \
+		login.h \
 		ringbuffer.h \
 		WebSocketServer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
-WebSocketServer.o: WebSocketServer.cpp WebSocketServer.h \
-		ringbuffer.h \
-		mysql.h \
+WebSocketServer.o: WebSocketServer.cpp mysql.h \
 		login.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o WebSocketServer.o WebSocketServer.cpp
 
 spiworker.o: spiworker.cpp spiworker.h \
-		ringbuffer.h \
 		spi.h \
 		mysql.h \
-		login.h
+		login.h \
+		ringbuffer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o spiworker.o spiworker.cpp
 
 mysql.o: mysql.cpp mysql.h \
