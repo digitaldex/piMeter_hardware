@@ -4,7 +4,7 @@
 #define CurrentConstant     2.683410674
 #define PowerConstant       3.870674811
 #define EnergyConstant      1.100991946
-#define PIN 		    RPI_BPLUS_GPIO_J8_37
+#define PIN 		        RPI_BPLUS_GPIO_J8_37
 
 using namespace std;
 
@@ -48,6 +48,7 @@ void spiWorker::process() {
     uint32_t ADCreturnValueUnsigned;
     char spiReceive[8];
     float AWATTHR = 0, BWATTHR = 0, CWATTHR = 0, AVARHR = 0, BVARHR = 0, CVARHR = 0, AVAHR = 0, BVAHR = 0, CVAHR = 0;
+    
     sql.initDBconnection();
     sql.getInitialValues(AWATTHR, BWATTHR, CWATTHR, AVARHR, BVARHR, CVARHR, AVAHR, BVAHR, CVAHR);
 

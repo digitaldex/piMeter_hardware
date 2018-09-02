@@ -9,9 +9,9 @@ mySQLhandler::mySQLhandler() {
 int mySQLhandler::initDBconnection() {
 	try {
 	   	driver = get_driver_instance();
-        con = driver->connect(HOST, USER, PASS);
-        con->setSchema(DB);
-        stmt = con->createStatement();
+      con = driver->connect(HOST, USER, PASS);
+      con->setSchema(DB);
+      stmt = con->createStatement();
 	    stmt->execute("CREATE TABLE IF NOT EXISTS consumption_table (id INTEGER PRIMARY KEY AUTO_INCREMENT, timestamp DATETIME, awatthr FLOAT, bwatthr FLOAT, cwatthr FLOAT, avarhr FLOAT, bvarhr FLOAT, cvarhr FLOAT, avahr FLOAT, bvahr FLOAT, cvahr FLOAT)");
 	    delete stmt;
 	} catch (sql::SQLException &e) {
@@ -26,16 +26,16 @@ void mySQLhandler::writeConsumptionTable(string &value1, float &value2, float &v
 	try {
 		pstmt = con->prepareStatement("INSERT INTO consumption_table (timestamp, awatthr, bwatthr, cwatthr, avarhr, bvarhr, cvarhr, avahr, bvahr, cvahr) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
   		pstmt->setDateTime(1, value1);
-        pstmt->setDouble(2, value2);
-        pstmt->setDouble(3, value3);
-        pstmt->setDouble(4, value4);
-        pstmt->setDouble(5, value5);
-        pstmt->setDouble(6, value6);
-        pstmt->setDouble(7, value7);
-        pstmt->setDouble(8, value8);
-        pstmt->setDouble(9, value9);
-        pstmt->setDouble(10, value10);
-        pstmt->execute();
+      pstmt->setDouble(2, value2);
+      pstmt->setDouble(3, value3);
+      pstmt->setDouble(4, value4);
+      pstmt->setDouble(5, value5);
+      pstmt->setDouble(6, value6);
+      pstmt->setDouble(7, value7);
+      pstmt->setDouble(8, value8);
+      pstmt->setDouble(9, value9);
+      pstmt->setDouble(10, value10);
+      pstmt->execute();
   		delete pstmt;
   	} catch (sql::SQLException &e) {
   		cout << "# ERR: " << e.what();

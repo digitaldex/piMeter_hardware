@@ -131,7 +131,7 @@ function initWebSocket() {
         websocket.onclose = function (evt) {
         };
         websocket.onmessage = function (evt) {
-            // console.log( "Message received :", evt.data );
+            console.log( "Message received :", evt.data );
             newData = JSON.parse(evt.data);
             if(firstStart == true) {
               awatttotal = (newData[0]["TotalL1watt"]) / 1000;
@@ -159,8 +159,8 @@ function initWebSocket() {
 }
 
 function getDay() {
-  today = document.getElementById("date").value;
-  websocket.send(today);
+    today = document.getElementById("date").value;
+    websocket.send(today);
 }
 
 function getMonth() {
@@ -169,6 +169,7 @@ function getMonth() {
 }
 
 function getYear() {
+    chart.categoryAxesSettings.minPeriod = "mm";
     today = document.getElementById("year").value;
     websocket.send(today);
 }
