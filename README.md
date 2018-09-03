@@ -6,13 +6,13 @@ This one here is now only for the Hardware Part of this Project.
 
 
 ## Board
-![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/piMeter.png "Eagle Board Screenshot")
+![alt text](https://github.com/digitaldex/piMeter_hardware/blob/master/eagle/piMeter.png "Eagle Board Screenshot")
 
 ## Case
-![alt text](https://github.com/digitaldex/piMeter/blob/master/eagle/case.png "piMeter Case Screenshot")
+![alt text](https://github.com/digitaldex/piMeter_hardware/blob/master/eagle/case.png "piMeter Case Screenshot")
 
 ## Schematics
-[piMeter Schematics](https://github.com/digitaldex/piMeter/blob/master/eagle/Schematics.pdf)
+[piMeter Schematics](https://github.com/digitaldex/piMeter_hardware/blob/master/eagle/Schematics.pdf)
 
 
 ## Ressources
